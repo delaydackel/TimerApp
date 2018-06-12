@@ -11,7 +11,7 @@ namespace TimerApp
 		{
 			InitializeComponent();
 
-			MainPage = new MainPage();
+			MainPage = new View.StartPageMaster();
 		}
 
 		protected override void OnStart ()
