@@ -6,5 +6,9 @@ namespace TimerApp.Control
 {
     interface IAppService
     {
+        void createTimer();
+        void removeTimer();
+        void saveTimer();
+        void loadTimer();
     }
 }

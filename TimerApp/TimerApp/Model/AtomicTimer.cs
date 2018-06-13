@@ -4,19 +4,32 @@ using System.Text;
 
 namespace TimerApp.Model
 {
-    class AtomicTimer
+    public class AtomicTimer : Dictionary<string, object>
     {
-        private TimeSpan duration;
-        private string name;
-        public string Name
+        //public KeyCollection keys;
+        public AtomicTimer():base()
         {
-            get { return name; }
-            set { name = value; }
+            this.Add("Name",string.Empty);
+            this.Add("Duration", new TimeSpan());
+            this.Add("Repetitions", 0);
+
+                
         }
-        public TimeSpan Duration
-        {
-            get { return duration; }
-            set { duration = value; }
-        }
-    }
+
+    
+    //    private TimeSpan duration;
+    //    private string name;
+    //    public string Name
+    //    {
+    //        get { return name; }
+    //        set { name = value; }
+    //    }
+    //    public TimeSpan Duration
+    //    {
+    //        get { return duration; }
+    //        set { duration = value; }
+    //    }
+
+
+}
 }

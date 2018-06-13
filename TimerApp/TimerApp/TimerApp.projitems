@@ -16,9 +16,14 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Control\IAppService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Model\AtomicTimer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\DatabaseManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\IDatabseManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\TimerSet.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)View\StartPage.xaml.cs">
       <DependentUpon>StartPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -36,8 +41,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Model\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Control\" />
     <Folder Include="$(MSBuildThisFileDirectory)ViewModel\" />
   </ItemGroup>
   <ItemGroup>
