@@ -24,6 +24,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Model\DatabaseManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\IDatabseManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\TimerSet.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Workout.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)View\StartPage.xaml.cs">
       <DependentUpon>StartPage.xaml</DependentUpon>
       <SubType>Code</SubType>

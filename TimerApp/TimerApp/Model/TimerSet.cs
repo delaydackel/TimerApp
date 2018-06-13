@@ -1,22 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 
 namespace TimerApp.Model
 {
-    class TimerSet
+    class TimerSet:Dictionary<string, object>, INotifyPropertyChanged
     {
-        private List<AtomicTimer> elements;
-        private uint repetitions;
-        public List<AtomicTimer> Elements
+        public TimerSet() : base()
         {
-            get { return elements; }
-            set { elements = value; }
+            this.Add("Name", string.Empty);
+            this.Add("Timers", new List<AtomicTimer>());
+            this.Add("Repetitions", 0);
         }
-        public uint Repetitions
-        {
-            get { return repetitions; }
-            set { repetitions = value; }
-        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        //private List<AtomicTimer> elements;
+        //private uint repetitions;
+        //public List<AtomicTimer> Elements
+        //{
+        //    get { return elements; }
+        //    set { elements = value; }
+        //}
+        //public uint Repetitions
+        //{
+        //    get { return repetitions; }
+        //    set { repetitions = value; }
+        //}
     }
 }
