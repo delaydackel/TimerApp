@@ -11,8 +11,16 @@ namespace TimerApp
 		{
 			InitializeComponent();
 
-			MainPage = new View.StartPageMaster();
-		}
+            //var navPage = new NavigationPage(new PageOne()) { Title = "Title" };
+            var mdp = new View.LandingPage();
+            //    new MasterDetailPage()
+            //{
+            //    Master = new View.StartPageMaster(),
+            //    Detail = new View.StartPageDetail()
+            //};
+
+            MainPage = mdp;// new NavigationPage( mdp);
+        }
 
 		protected override void OnStart ()
 		{

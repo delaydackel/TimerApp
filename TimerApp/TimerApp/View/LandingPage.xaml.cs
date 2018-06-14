@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace TimerApp.View
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class StartPage : MasterDetailPage
+    public partial class LandingPage : MasterDetailPage
     {
-        public StartPage()
+        public LandingPage()
         {
             InitializeComponent();
             MasterPage.ListView.ItemSelected += ListView_ItemSelected;
@@ -20,7 +20,7 @@ namespace TimerApp.View
 
         private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            var item = e.SelectedItem as StartPageMenuItem;
+            var item = e.SelectedItem as LandingPageMenuItem;
             if (item == null)
                 return;
 

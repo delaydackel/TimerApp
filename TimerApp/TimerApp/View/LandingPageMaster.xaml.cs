@@ -13,28 +13,28 @@ using Xamarin.Forms.Xaml;
 namespace TimerApp.View
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class StartPageMaster : ContentPage
+    public partial class LandingPageMaster : ContentPage
     {
         public ListView ListView;
 
-        public StartPageMaster()
+        public LandingPageMaster()
         {
             InitializeComponent();
 
-            BindingContext = new StartPageMasterViewModel();
+            BindingContext = new LandingPageMasterViewModel();
             ListView = MenuItemsListView;
         }
 
-        class StartPageMasterViewModel : INotifyPropertyChanged
+        class LandingPageMasterViewModel : INotifyPropertyChanged
         {
-            public ObservableCollection<StartPageMenuItem> MenuItems { get; set; }
+            public ObservableCollection<LandingPageMenuItem> MenuItems { get; set; }
             
-            public StartPageMasterViewModel()
+            public LandingPageMasterViewModel()
             {
-                MenuItems = new ObservableCollection<StartPageMenuItem>(new[]
+                MenuItems = new ObservableCollection<LandingPageMenuItem>(new[]
                 {
-                    new StartPageMenuItem { Id = 0, Title = "Timer",TargetType = typeof(View.TimerPage) },
-                    new StartPageMenuItem { Id = 1, Title = "Playlists" ,TargetType = typeof(View.PlaylistPage)}                    
+                    new LandingPageMenuItem { Id = 0, Title = "Timer",TargetType = typeof(View.TimerPage) },
+                    new LandingPageMenuItem { Id = 1, Title = "Playlists" ,TargetType = typeof(View.PlaylistPage)}
                 });
             }
             

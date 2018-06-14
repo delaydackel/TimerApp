@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace TimerApp.View
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class StartPageDetail : ContentPage
+    public partial class LandingPageDetail : ContentPage
     {
-        public StartPageDetail()
+        public LandingPageDetail()
         {
             InitializeComponent();
         }

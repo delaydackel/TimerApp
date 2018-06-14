@@ -13,6 +13,24 @@ namespace TimerApp.ViewModel
     class TimerPageViewModel : INotifyPropertyChanged
     {
         public DisplayTimer CurrentTimer { get; set; }
+        private string name;
+        private TimeSpan duration;
+        private uint repetitions;
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
+        public TimeSpan Duration
+        {
+            get { return duration; }
+            set { duration = value; }
+        }
+        public uint Repetitions
+        {
+            get { return repetitions; }
+            set { repetitions = value; }
+        }
 
         public TimerPageViewModel()
         {

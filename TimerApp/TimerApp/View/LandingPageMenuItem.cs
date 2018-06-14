@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 namespace TimerApp.View
 {
 
-    public class StartPageMenuItem
+    public class LandingPageMenuItem
     {
-        public StartPageMenuItem()
+        public LandingPageMenuItem()
         {
-            //TargetType = typeof(StartPageDetail);
+            //TargetType = typeof(LandingPageDetail);
         }
         public int Id { get; set; }
         public string Title { get; set; }
