@@ -11,7 +11,7 @@ namespace TimerApp.View
     {
         public StartPageMenuItem()
         {
-            TargetType = typeof(StartPageDetail);
+            //TargetType = typeof(StartPageDetail);
         }
         public int Id { get; set; }
         public string Title { get; set; }

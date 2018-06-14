@@ -33,8 +33,8 @@ namespace TimerApp.View
             {
                 MenuItems = new ObservableCollection<StartPageMenuItem>(new[]
                 {
-                    new StartPageMenuItem { Id = 0, Title = "Timer" },
-                    new StartPageMenuItem { Id = 1, Title = "Playlists" },
+                    new StartPageMenuItem { Id = 0, Title = "Timer",TargetType = typeof(StartPageDetail) },
+                    new StartPageMenuItem { Id = 1, Title = "Playlists" ,TargetType = typeof(StartPageDetail)},
                    new StartPageMenuItem{Id=2, Title = "doener", TargetType =typeof(MainPage)} 
                 });
             }
