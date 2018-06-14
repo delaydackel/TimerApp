@@ -17,6 +17,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Control\IAppService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Control\IDataStore.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -27,6 +28,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Model\TimerSet.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Workout.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\TimerPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\TimerSettingPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)View\LandingPage.xaml.cs">
       <DependentUpon>LandingPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -43,43 +45,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)View\PlaylistPage.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)View\StartPage.xaml.cs">
-      <DependentUpon>StartPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)View\StartPageDetail.xaml.cs">
-      <DependentUpon>StartPageDetail.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)View\StartPageMaster.xaml.cs">
-      <DependentUpon>StartPageMaster.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)View\StartPageMenuItem.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)View\TimerPage.xaml.cs">
       <DependentUpon>TimerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)View\StartPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)View\StartPageMaster.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)View\StartPageDetail.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)View\TimerPage.xaml">

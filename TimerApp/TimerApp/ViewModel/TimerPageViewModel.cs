@@ -14,14 +14,14 @@ namespace TimerApp.ViewModel
     {
         public DisplayTimer CurrentTimer { get; set; }
         private string name;
-        private TimeSpan duration;
+        private string duration;
         private uint repetitions;
         public string Name
         {
             get { return name; }
             set { name = value; }
         }
-        public TimeSpan Duration
+        public string Duration
         {
             get { return duration; }
             set { duration = value; }
@@ -35,9 +35,11 @@ namespace TimerApp.ViewModel
         public TimerPageViewModel()
         {
             CurrentTimer = new DisplayTimer();
-            CurrentTimer.Duration = new TimeSpan(10000);
+            CurrentTimer.Duration = new TimeSpan(1, 2, 3);
             CurrentTimer.Name = "Uebung01";
             CurrentTimer.Repetitions = 5;
+
+            Duration = CurrentTimer.Duration.ToString();
         }
 
         #region INotifyPropertyChanged Implementation
