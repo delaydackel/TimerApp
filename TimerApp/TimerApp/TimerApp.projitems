@@ -27,6 +27,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Model\IDatabseManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\TimerSet.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Workout.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\TimerCreationPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\TimerPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\TimerSettingPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)View\LandingPage.xaml.cs">
@@ -45,6 +46,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)View\PlaylistPage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)View\TimerCreationPage.xaml.cs">
+      <DependentUpon>TimerCreationPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)View\TimerPage.xaml.cs">
       <DependentUpon>TimerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -70,6 +75,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)View\LandingPageDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)View\TimerCreationPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>

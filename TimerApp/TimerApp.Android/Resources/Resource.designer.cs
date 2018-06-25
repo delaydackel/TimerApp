@@ -26,6 +26,9 @@ namespace TimerApp.Droid
 		
 		public static void UpdateIdValues()
 		{
+			global::Syncfusion.ListView.XForms.Android.Resource.String.ApplicationName = global::TimerApp.Droid.Resource.String.ApplicationName;
+			global::Syncfusion.ListView.XForms.Android.Resource.String.Hello = global::TimerApp.Droid.Resource.String.Hello;
+			global::Syncfusion.ListView.XForms.Android.Resource.String.Load_More = global::TimerApp.Droid.Resource.String.Load_More;
 			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::TimerApp.Droid.Resource.Attribute.actionBarSize;
 		}
 		
@@ -3634,6 +3637,15 @@ namespace TimerApp.Droid
 		
 		public partial class String
 		{
+			
+			// aapt resource value: 0x7f0a003f
+			public const int ApplicationName = 2131361855;
+			
+			// aapt resource value: 0x7f0a003e
+			public const int Hello = 2131361854;
+			
+			// aapt resource value: 0x7f0a0040
+			public const int Load_More = 2131361856;
 			
 			// aapt resource value: 0x7f0a0015
 			public const int abc_action_bar_home_description = 2131361813;
