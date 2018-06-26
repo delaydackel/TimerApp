@@ -7,10 +7,9 @@
         <Grid x:Name="LayoutGrid"
               >
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+                
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10"/>
@@ -19,13 +18,15 @@
             </Grid.ColumnDefinitions>
             <Entry x:Name="WorkoutNameEntry"
                    TextChanged="WorkoutNameEntry_TextChanged"
+                   Placeholder="Name"
                    Grid.Column="1"
                    Grid.Row="0"
                    VerticalOptions="Start">
                 
             </Entry>
             <syncfusion:SfListView x:Name="TimerListView"
-                      
+                      HorizontalOptions="CenterAndExpand"
+                                   VerticalOptions="CenterAndExpand"
                       ItemsSource="{Binding TimerList}"
                       
                       Grid.Row="1"
@@ -33,6 +34,7 @@
 
 
             </syncfusion:SfListView>
+            <Button x:Name="AddTimerButton" Text="Neuer Timer" Clicked="AddTimerButton_Clicked" Grid.Row="2" Grid.Column="1"></Button>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

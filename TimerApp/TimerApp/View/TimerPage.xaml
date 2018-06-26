@@ -8,8 +8,16 @@
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
             -->
-            <Grid x:Name ="grid">
+            <Grid x:Name ="grid"
+                  HorizontalOptions="FillAndExpand"
+                  VerticalOptions="FillAndExpand"
+                  BackgroundColor="Beige">
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
@@ -19,32 +27,95 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Label
+                    x:Name="TimerDurationLabel"
               Grid.Column="1"
-              Grid.Row="1"
+              Grid.Row="3"
+              Grid.ColumnSpan="2"
+              Grid.RowSpan="2"
+              FontSize="Large"
               Text="{Binding Duration}"
+              HorizontalOptions="CenterAndExpand"
+              VerticalOptions="CenterAndExpand"
               />
                 <Label
+                    x:Name="TimerNextLabel"
+              Grid.Column="3"
+              Grid.Row="8"
+              Text="Next"
+              HorizontalOptions="Center"
+              VerticalOptions="Center"
+              FontSize="Large"
+                    >
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer x:Name="TimerNextLabelGestureRecognizer" Tapped="TimerNextLabelGestureRecognizer_Tapped"></TapGestureRecognizer>
+                    </Label.GestureRecognizers>
+                </Label>
+                <Label
+                    x:Name="TimerStartLabel"
               Grid.Column="1"
-              Grid.Row="2"
-              Text="Text1"
-              />
+              Grid.Row="8"
+              Grid.ColumnSpan="2"
+              Text="Start"
+              HorizontalOptions="Center"
+              VerticalOptions="Center"
+              FontSize="Large"
+              >
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer x:Name="TimerStartGestureRecognizer" Tapped="TimerStartGestureRecognizer_Tapped"></TapGestureRecognizer>
+                    </Label.GestureRecognizers>
+                </Label>
                 <Label
-              Grid.Column="2"
-              Grid.Row="2"
-              Text="Text2"
-              />
-                <Label
+                    x:Name="TimerPauseLabel"
               Grid.Column="0"
-              Grid.Row="3"
-              Text="Text3"
-              />
+              Grid.Row="8"
+              Text="Pause"
+              HorizontalOptions="Center"
+              VerticalOptions="Center"
+              FontSize="Large"
+              >
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer x:Name="TimerPauseLabelGestureRecognizer" Tapped="TimerPauseLabelGestureRecognizer_Tapped"></TapGestureRecognizer>
+                    </Label.GestureRecognizers>
+                </Label>
                 <Label
-              Grid.Column="2"
-              Grid.Row="3"
-              Text="Text4"
-              />
+                    x:Name="TimerNameLabel"
+              Grid.Column="1"
+              Grid.Row="5"
+              Grid.ColumnSpan="2"
+              Text="Name"
+              HorizontalOptions="CenterAndExpand"
+              VerticalOptions="CenterAndExpand"
+              FontSize="Large"
+              >
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer x:Name="TimerNameLabelGestureRecognizer" Tapped="TimerNameLabelGestureRecognizer_Tapped"></TapGestureRecognizer>
+                    </Label.GestureRecognizers>
+                </Label>
+                <Label
+                    x:Name="TimerSumLabel"
+                    Grid.Column="1"
+                    Grid.Row="0"
+                    Grid.ColumnSpan="2"
+                    HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="CenterAndExpand"
+                    FontSize="Large"
+                    Text="Gesamt"
+                    >
+                </Label>
+                <Label
+                    x:Name="TimerRepeatLabel"
+                    Grid.Column="3"
+                    Grid.Row="0"
+                    Grid.ColumnSpan="1"
+                    HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="CenterAndExpand"
+                    FontSize="Large"
+                    Text="Repeat"
+                    >
+                </Label>
             </Grid>
         </StackLayout>
     </ContentPage.Content>

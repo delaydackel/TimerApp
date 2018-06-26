@@ -15,21 +15,20 @@ namespace TimerApp.View
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class TimerCreationPage : ContentPage
 	{
-        private DataTemplate timerItemTemplate;
-        private DataTemplate timerSelectedItemTemplate;
         private TimerCreationPageViewModel Vm;
         public TimerCreationPage ()
 		{
 			InitializeComponent ();
-            timerItemTemplate = CreateTimerItemTemplate();
-            timerSelectedItemTemplate = CreateTimerSelectedItemTemplate();
+            //timerItemTemplate = CreateTimerItemTemplate();
+            //timerSelectedItemTemplate = CreateTimerSelectedItemTemplate();
             Vm = new TimerCreationPageViewModel();
             TimerListView.VerticalOptions = LayoutOptions.FillAndExpand;
             TimerListView.HorizontalOptions = LayoutOptions.FillAndExpand;
-            TimerListView.AutoFitMode = AutoFitMode.Height;
+            TimerListView.AutoFitMode = AutoFitMode.None;
+            TimerListView.ItemSize = 100;
             TimerListView.SelectionMode = SelectionMode.Single;
-            TimerListView.ItemTemplate = timerItemTemplate;
-            TimerListView.SelectedItemTemplate = timerSelectedItemTemplate;
+            TimerListView.ItemTemplate = CreateTimerItemTemplate();
+            
             TimerListView.SelectionChanged += TimerListView_SelectionChanged;
 
 
@@ -43,42 +42,88 @@ namespace TimerApp.View
                 var grid = new Grid();
                 grid.HeightRequest = 300; 
                 grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Auto) });
-                grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+                grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Auto) });
+                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Auto) });
+                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Auto) });
+                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(0.25, GridUnitType.Auto) });
+                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(0.25, GridUnitType.Auto) });
                 var nameLabel = new Label { FontAttributes = FontAttributes.Bold };
                 var durationLabel = new Label();
                 var repetitionsLabel = new Label { HorizontalTextAlignment = TextAlignment.End };
+                var nameEntry = new Entry() { Placeholder = "Name" };
                 var durationPicker = new TimePicker();
                 var increaseRepetitionButton = new Button() { Text = "+" };
                 var decreaseRepetitionButton = new Button() { Text = "-" };
 
                 nameLabel.SetBinding(Label.TextProperty, "Name");
+                nameEntry.SetBinding(Entry.TextProperty, "Name");
                 durationLabel.SetBinding(Label.TextProperty, "DurationText");
                 repetitionsLabel.SetBinding(Label.TextProperty, "RepetitionsText");
 
-                durationPicker.SetBinding(Picker.ItemsSourceProperty, "Duration", BindingMode.TwoWay);
+                durationPicker.SetBinding(TimePicker.TimeProperty, "Duration");
                 durationPicker.PropertyChanged += DurationPicker_PropertyChanged;
                 grid.Children.Add(nameLabel);
                 grid.Children.Add(durationLabel, 1, 0);
                 grid.Children.Add(repetitionsLabel, 2, 0);
-                grid.Children.Add(durationPicker, 0, 1);
-                grid.Children.Add(increaseRepetitionButton, 1, 1);
-                grid.Children.Add(decreaseRepetitionButton, 2, 1);
+                grid.Children.Add(nameEntry, 0, 1);
+                grid.Children.Add(durationPicker, 1, 1);
+                grid.Children.Add(increaseRepetitionButton, 2, 1);
+                grid.Children.Add(decreaseRepetitionButton, 3, 1);
 
-
+                increaseRepetitionButton.Clicked += IncreaseRepetitionButton_Clicked;
+                decreaseRepetitionButton.Clicked += DecreaseRepetitionButton_Clicked;
                 return new ViewCell { View = grid };
             });
 
             return template;
         }
 
+        private void DecreaseRepetitionButton_Clicked(object sender, EventArgs e)
+        {
+            if((TimerListView.CurrentItem as AtomicTimer).Repetitions >= 1)
+            {
+                Vm.TimerList[Vm.TimerList.IndexOf(TimerListView.CurrentItem as AtomicTimer)].Repetitions--;
+                //(TimerListView.CurrentItem as AtomicTimer).Repetitions--;
+                TimerListView.ItemsSource = Vm.TimerList;
+                TimerListView.SelectedItemTemplate = CreateTimerSelectedItemTemplate();
+                TimerListView.ItemTemplate = CreateTimerItemTemplate();
+                //TimerListView.ForceUpdateItemSize();
+            }
+            
+        }
+
+        private void IncreaseRepetitionButton_Clicked(object sender, EventArgs e)
+        {
+            Vm.TimerList[Vm.TimerList.IndexOf(TimerListView.CurrentItem as AtomicTimer)].Repetitions++;
+            //(TimerListView.CurrentItem as AtomicTimer).Repetitions++;
+            //TimerListView.ItemsSource=Vm.TimerList;
+            TimerListView.ForceUpdateItemSize(Vm.TimerList.IndexOf(TimerListView.CurrentItem as AtomicTimer));
+            TimerListView.SelectedItemTemplate = CreateTimerSelectedItemTemplate();
+            TimerListView.ItemTemplate = CreateTimerItemTemplate();
+
+        }
+
         private void DurationPicker_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            Vm.TimerList[Vm.TimerList.IndexOf(TimerListView.CurrentItem as AtomicTimer)].Duration = (sender as TimePicker).Time;
-            TimerListView.ForceLayout();
+            if(e.PropertyName == "Time")
+            {
+                Vm.TimerList[Vm.TimerList.IndexOf(TimerListView.CurrentItem as AtomicTimer)].Duration = (sender as TimePicker).Time;
+                //TimerListView.ItemsSource = Vm.TimerList;
+                
+                //TimerListView.ForceUpdateItemSize(Vm.TimerList.IndexOf(TimerListView.CurrentItem as AtomicTimer));
+                //TimerListView.SelectedItemTemplate = CreateTimerSelectedItemTemplate();
+                //TimerListView.ItemTemplate = CreateTimerItemTemplate();
+
+            }
+
         }
 
         private void TimerListView_SelectionChanged(object sender, ItemSelectionChangedEventArgs e)
         {
+            TimerListView.SelectedItemTemplate = CreateTimerSelectedItemTemplate();
+            TimerListView.ItemTemplate = CreateTimerItemTemplate();
+            //TimerListView.= 100;
+            TimerListView.ForceUpdateItemSize(Vm.TimerList.IndexOf(TimerListView.CurrentItem as AtomicTimer));
             //try
             //{
             //    if (e.AddedItems.Count == 0) return; // don't do anything if we just de-selected the row
@@ -157,6 +202,9 @@ namespace TimerApp.View
 
         }
 
-        
+        private void AddTimerButton_Clicked(object sender, EventArgs e)
+        {
+            Vm.AddTimer();
+        }
     }
 }

@@ -25,5 +25,24 @@ namespace TimerApp.View
             //Content.BindingContext = Vm;
         }
 
+        private void TimerNameLabelGestureRecognizer_Tapped(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TimerNextLabelGestureRecognizer_Tapped(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TimerPauseLabelGestureRecognizer_Tapped(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TimerStartGestureRecognizer_Tapped(object sender, EventArgs e)
+        {
+
+        }
     }
 }

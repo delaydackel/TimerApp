@@ -52,5 +52,11 @@ namespace TimerApp.ViewModel
             var handler = PropertyChanged;
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        internal void AddTimer()
+        {
+            TimerList.Add(new AtomicTimer() { Name = "Timer",Repetitions=1});
+         //   throw new NotImplementedException();
+        }
     }
 }
