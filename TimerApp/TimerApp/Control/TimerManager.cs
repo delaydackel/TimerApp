@@ -8,31 +8,40 @@ namespace TimerApp.Control
 {
     class TimerManager : ITimerManager
     {
+        //ConcurrentBag<CancellationTokenSource> activeSources;
+        public event ExerciseTimerElapsedHandler ExerciseTimerElapsedEvent;
+        public event WorkoutTimerElapsedHandler WorkoutTimerElapsedEvent;
+  
         private TimerState _timerState = TimerState.STOPPED;
         private Timer exerciseTimer = new Timer();
         private Timer workoutTimer = new Timer();
+
+        private Workout currentWorkout;
         public TimerManager()
         {
             exerciseTimer.Interval = 1000;
             workoutTimer.Interval = 1000;
-            exerciseTimer.Elapsed += ExerciseTimerElapsedEvent;
-            workoutTimer.Elapsed += WorkoutTimer_Elapsed;
+            exerciseTimer.Elapsed += OnExerciseTimerElapsedEvent;
+            workoutTimer.Elapsed += OnWorkoutTimerElapsedEvent;
 
         }
 
-        private void WorkoutTimer_Elapsed(object sender, ElapsedEventArgs e)
+        protected void OnExerciseTimerElapsedEvent(object sender, ElapsedEventArgs e)
         {
-            throw new NotImplementedException();
+            ExerciseTimerElapsedEvent(this, e);
         }
+        public delegate void ExerciseTimerElapsedHandler(object sender, ElapsedEventArgs e);
 
-        private void ExerciseTimerElapsedEvent(object sender, ElapsedEventArgs e)
+        protected void OnWorkoutTimerElapsedEvent(object sender, ElapsedEventArgs e)
         {
-            throw new NotImplementedException();
+            WorkoutTimerElapsedEvent(this, e);
         }
+        public delegate void WorkoutTimerElapsedHandler(object sender, ElapsedEventArgs e);
+
 
         public void StartWorkout(Workout workout)
         {
-            throw new NotImplementedException();
+            this.currentWorkout = workout;
         }
 
         public void PauseTimer()
@@ -45,4 +54,5 @@ namespace TimerApp.Control
             throw new NotImplementedException();
         }
     }
+    
 }
