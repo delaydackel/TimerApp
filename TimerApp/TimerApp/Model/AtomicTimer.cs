@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Text;
 using Xamarin.Forms;
 
@@ -53,7 +54,13 @@ namespace TimerApp.Model
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            var handler = PropertyChanged;
+            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         //void OnKeyAddedRemovedUpdated(string key)
         //{
         //    PropertyChanged(this, new PropertyChangedEventArgs("Item[" + key + "]");

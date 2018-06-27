@@ -10,8 +10,12 @@ namespace TimerApp.Control
     {
         //ConcurrentBag<CancellationTokenSource> activeSources;
         public event ExerciseTimerElapsedHandler ExerciseTimerElapsedEvent;
+        public event SetTimerElapsedHandler SetTimerElapsedEvent;
         public event WorkoutTimerElapsedHandler WorkoutTimerElapsedEvent;
-  
+        public event ExerciseTimerFinishedHandler ExerciseTimerFinishedEvent;
+        public event SetTimerFinishedHandler SetTimerFinishedEvent;
+        public event WorkoutTimerFinishedHandler WorkoutTimerFinishedEvent;
+
         private TimerState _timerState = TimerState.STOPPED;
         private Timer exerciseTimer = new Timer();
         private Timer workoutTimer = new Timer();
@@ -30,6 +34,11 @@ namespace TimerApp.Control
         {
             ExerciseTimerElapsedEvent(this, e);
         }
+        public delegate void SetTimerElapsedHandler(object sender, ElapsedEventArgs e);
+        protected void OnSetTimerElapsedEvent(object sender, ElapsedEventArgs e)
+        {
+            SetTimerElapsedEvent(this, e);
+        }
         public delegate void ExerciseTimerElapsedHandler(object sender, ElapsedEventArgs e);
 
         protected void OnWorkoutTimerElapsedEvent(object sender, ElapsedEventArgs e)
@@ -39,9 +48,47 @@ namespace TimerApp.Control
         public delegate void WorkoutTimerElapsedHandler(object sender, ElapsedEventArgs e);
 
 
+        protected void OnExerciseTimerFinishedEvent(object sender, ExerciseFinishedEventArgs e)
+        {
+            ExerciseTimerFinishedEvent(this, e);
+        }
+        public delegate void ExerciseTimerFinishedHandler(object sender, ExerciseFinishedEventArgs e);
+        public delegate void SetTimerFinishedHandler(object sender, SetFinishedEventArgs e);
+        protected void OnSetTimerFinishedEvent(object sender, SetFinishedEventArgs e)
+        {
+            SetTimerFinishedEvent(this, e);
+        }
+
+
+        protected void OnWorkoutTimerFinishedEvent(object sender, WorkoutFinishedEventArgs e)
+        {
+            WorkoutTimerFinishedEvent(this, e);
+        }
+        public delegate void WorkoutTimerFinishedHandler(object sender, WorkoutFinishedEventArgs e);
+
+
+
+
         public void StartWorkout(Workout workout)
         {
             this.currentWorkout = workout;
+            TimeSpan workoutSpan= GetWorkoutSpan(workout);
+
+            
+        }
+
+        private TimeSpan GetWorkoutSpan(Workout workout)
+        {
+            TimeSpan rvalue = new TimeSpan();
+            foreach (var set in currentWorkout.Timers)
+            {
+                foreach (var timer in set.Timers)
+                {
+                    rvalue.Add(timer.Duration);
+                }
+            }
+            return rvalue;
+
         }
 
         public void PauseTimer()
@@ -54,5 +101,4 @@ namespace TimerApp.Control
             throw new NotImplementedException();
         }
     }
-    
 }
