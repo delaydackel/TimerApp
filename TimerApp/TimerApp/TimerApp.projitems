@@ -18,6 +18,8 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Control\IAppService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Control\IDataStore.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Control\ITimerManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Control\TimerManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -27,6 +29,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Model\IDatabseManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\ISaveAndLoad.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\TimerSet.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\TimerState.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Workout.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\TimerCreationPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\TimerPageViewModel.cs" />

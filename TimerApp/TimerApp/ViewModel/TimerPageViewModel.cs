@@ -4,6 +4,8 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Timers;
+using TimerApp.Control;
 using TimerApp.Model;
 
 namespace TimerApp.ViewModel
@@ -12,6 +14,7 @@ namespace TimerApp.ViewModel
 
     class TimerPageViewModel : INotifyPropertyChanged
     {
+
         public DisplayTimer CurrentTimer { get; set; }
         private string name;
         private string duration;
@@ -31,7 +34,7 @@ namespace TimerApp.ViewModel
             get { return repetitions; }
             set { repetitions = value; }
         }
-
+     
         public TimerPageViewModel()
         {
             CurrentTimer = new DisplayTimer();
@@ -40,7 +43,14 @@ namespace TimerApp.ViewModel
             CurrentTimer.Repetitions = 5;
 
             Duration = CurrentTimer.Duration.ToString();
+            //Duration = secondsToCountdown();
+            TimerManager mgr = new TimerManager();
+
+            //mgr.work += 
+
         }
+
+      
 
         #region INotifyPropertyChanged Implementation
         public event PropertyChangedEventHandler PropertyChanged;
