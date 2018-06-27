@@ -16,10 +16,14 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Control\ExerciseFinishedEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Control\FinishedEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Control\IAppService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Control\IDataStore.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Control\ITimerManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Control\SetFinishedEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Control\TimerManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Control\WorkoutFinishedEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>

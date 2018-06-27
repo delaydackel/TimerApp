@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using System.Timers;
 using TimerApp.Model;
 
@@ -18,15 +19,22 @@ namespace TimerApp.Control
 
         private TimerState _timerState = TimerState.STOPPED;
         private Timer exerciseTimer = new Timer();
+        private Timer setTimer = new Timer();
         private Timer workoutTimer = new Timer();
-
+        private TimeSpan workoutSpan = new TimeSpan();
+        private TimeSpan setSpan = new TimeSpan();
+        private TimeSpan exerciseSpan = new TimeSpan();
+        private Queue<TimeSpan> setTimeSpans = new Queue<TimeSpan>();
         private Workout currentWorkout;
         public TimerManager()
         {
             exerciseTimer.Interval = 1000;
+            setTimer.Interval = 1000;
             workoutTimer.Interval = 1000;
             exerciseTimer.Elapsed += OnExerciseTimerElapsedEvent;
+            setTimer.Elapsed += OnSetTimerElapsedEvent;
             workoutTimer.Elapsed += OnWorkoutTimerElapsedEvent;
+            
 
         }
 
@@ -69,12 +77,49 @@ namespace TimerApp.Control
 
 
 
-        public void StartWorkout(Workout workout)
+        public void StartWorkoutAsync(Workout workout)
         {
             this.currentWorkout = workout;
             TimeSpan workoutSpan= GetWorkoutSpan(workout);
-
+            List<TimeSpan> setSpans = new List<TimeSpan>();
+            foreach (var set in workout.Timers)
+            {
+                TimeSpan currentSetSpan = new TimeSpan();
+                foreach (var exercise in set.Timers)
+                {
+                    currentSetSpan.Add(exercise.Duration);
+                }
+                setSpans.Add(currentSetSpan);
+                setTimeSpans.Enqueue(currentSetSpan);
+            }
+            var setTask = new Task(async ()=>
+            {
+                while (setTimeSpans.Count>0)
+                {
+                    setTimer.Start();
+                    await Task.Delay(setTimeSpans.Dequeue().Seconds);
+                    OnSetTimerFinishedEvent(this,new SetFinishedEventArgs(true));
+                }
+                setTimer.Stop();
+            });
             
+            //TimeSpan setSpan = GetSetSpan();
+            int workoutSeconds = workoutSpan.Seconds;
+
+            var workoutTask = new Task(async()=> 
+            {
+                await Task.Delay(workoutSeconds); 
+                OnWorkoutTimerFinishedEvent(this,new WorkoutFinishedEventArgs(true));
+                workoutTimer.Stop();
+            });
+            setTask.Start();
+            workoutTimer.Start();
+            workoutTask.Start();
+        }
+
+        private TimeSpan GetSetSpan(TimerSet set)
+        {
+            throw new NotImplementedException();
         }
 
         private TimeSpan GetWorkoutSpan(Workout workout)

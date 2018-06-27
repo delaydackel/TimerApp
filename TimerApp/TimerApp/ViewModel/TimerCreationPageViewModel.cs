@@ -39,7 +39,7 @@ namespace TimerApp.ViewModel
             TimerList.Add(testTimer2);
             TimerList.Add(testTimer3);
             var blub = new TimerSet();
-            blub["Timers"] = TimerList;
+            blub.Timers = new List<AtomicTimer> { testTimer,testTimer2,testTimer3};
             
 
 
