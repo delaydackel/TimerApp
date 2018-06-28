@@ -206,5 +206,10 @@ namespace TimerApp.View
         {
             Vm.AddTimer();
         }
+        protected override void OnDisappearing()
+        {
+            Vm.SaveWorkouts(WorkoutNameEntry.Text);
+            base.OnDisappearing();
+        }
     }
 }

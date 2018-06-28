@@ -1,25 +1,39 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
 using System.Text;
 using Data;
 using Xamarin.Forms;
 
 namespace TimerApp.Model
 {
-    public partial class DatabaseManager : IDatabaseManager
+    public partial class DatabaseManager //: IDatabaseManager
     {
         private string mDatabase = string.Empty;
-        private const string TABLENAME = "OfflineResults";
+        private const string TABLENAME = "Workouts";
 
         public DatabaseManager()
         {
-            mDatabase = DependencyService.Get<ISaveAndLoad>().CreateDBPath();
+            try
+            {
+
+                var documentsPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "workouts");
+                var dbpath = Path.Combine(documentsPath, "workouts.db");
+                mDatabase = dbpath;// DependencyService.Get<ISaveAndLoad>().CreateDBPath();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            
         }
 
         //public string value, name, date, key;
 
-        public bool writeEntry(string section, string key, object value, string date, string name)
+        public bool writeEntry(string section, string key, object value, string name)
         {
             SqlNonQuery nonquery = new SqlNonQuery();
 
@@ -50,14 +64,12 @@ namespace TimerApp.Model
                     var table = builder;
                     table.addTable(section);
                     table.addValue("Key", key);
-                    table.addValue("Json", value);
-                    table.addValue("Date", date);
+                    table.addValue("Json", value);                    
                     table.addValue("Name", name);
                     if (isUpdate)
                     {
                         table.addCondition("Key", "=", key);
-                        table.addCondition("Json", "=", value);
-                        table.addCondition("Date", "=", date);
+                        table.addCondition("Json", "=", value);                        
                         table.addCondition("Name", "=", name);
                     }
                 }
@@ -70,6 +82,15 @@ namespace TimerApp.Model
             return result > 0;
         }
 
+        internal void SaveWorkout(ObservableCollection<AtomicTimer> timerList, string name)
+        {
+            var values = Newtonsoft.Json.JsonConvert.SerializeObject(timerList);
+            //writeEntry(TABLENAME, downloadId, values, DateTime.Now.ToString(), downloadSetName);
+
+            writeEntry(TABLENAME, Guid.NewGuid().ToString(), values, name);
+
+        }
+
         private bool createTable()
         {
             SqlNonQuery nonquery = new SqlNonQuery();
@@ -80,8 +101,7 @@ namespace TimerApp.Model
                 var table = builder;
                 table.addTable(TABLENAME);
                 table.addColumn("Key", "VARCHAR", 100, false);
-                table.addColumn("Json", "VARCHAR", 50000, false);
-                table.addColumn("Date", "VARCHAR", 100, false);
+                table.addColumn("Json", "VARCHAR", 50000, false);             
                 table.addColumn("Name", "VARCHAR", 200, false);
                 table.setPrimaryKey("Key");
             }
@@ -146,7 +166,6 @@ namespace TimerApp.Model
                 table.addTable(section);
                 table.addColumn("Key");
                 table.addColumn("Json");
-                table.addColumn("Date");
                 table.addColumn("Name");
             }
             string qs = builder.ToString();

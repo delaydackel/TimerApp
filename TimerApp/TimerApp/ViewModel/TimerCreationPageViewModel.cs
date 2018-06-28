@@ -20,6 +20,7 @@ namespace TimerApp.ViewModel
         public TimerCreationPageViewModel()
         {
             timerList = new ObservableCollection<AtomicTimer>();
+            //LoadTimers();
             var testTimer = new AtomicTimer();
             testTimer.Name = "asd";
             testTimer.Repetitions = 15;
@@ -45,6 +46,13 @@ namespace TimerApp.ViewModel
 
         }
 
+        private void LoadTimers()
+        {
+            var dbMgr = new DatabaseManager();
+            
+            //throw new NotImplementedException();
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -57,6 +65,13 @@ namespace TimerApp.ViewModel
         {
             TimerList.Add(new AtomicTimer() { Name = "Timer",Repetitions=1});
          //   throw new NotImplementedException();
+        }
+        internal void SaveWorkouts(string name)
+        {
+            var dbMgr = new DatabaseManager();
+            
+            dbMgr.SaveWorkout(TimerList , name);
+            //throw new NotImplementedException();
         }
     }
 }

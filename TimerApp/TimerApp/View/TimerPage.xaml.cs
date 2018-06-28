@@ -44,5 +44,6 @@ namespace TimerApp.View
         {
             Vm.StartNextTimer();
         }
+        
     }
 }

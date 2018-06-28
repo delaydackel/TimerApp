@@ -70,6 +70,9 @@ namespace TimerApp.ViewModel
 
             
         }
+
+        
+
         public TimerPageViewModel(Workout workout)
         {
             currentWorkout = workout;
@@ -93,17 +96,17 @@ namespace TimerApp.ViewModel
 
         private void Manager_SetTimerElapsedEvent(object sender, ElapsedEventArgs e)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         private void Manager_WorkoutTimerFinishedEvent(object sender, WorkoutFinishedEventArgs e)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         private void Manager_SetTimerFinishedEvent(object sender, SetFinishedEventArgs e)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         private void Manager_ExerciseTimerFinishedEvent(object sender, ExerciseFinishedEventArgs e)

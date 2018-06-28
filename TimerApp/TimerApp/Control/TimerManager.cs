@@ -97,14 +97,20 @@ namespace TimerApp.Control
                 List<TimeSpan> setSpans = new List<TimeSpan>();
                 foreach (var set in workout.Timers)
                 {
-                    TimeSpan currentSetSpan = new TimeSpan();
-                    foreach (var exercise in set.Timers)
+                    for (int i = 0; i < set.Repetitions; i++)
                     {
-                        currentSetSpan=currentSetSpan.Add(exercise.Duration);
-                        exerciseTimeSpans.Add(exercise.Duration);
-                    }
-                    setSpans.Add(currentSetSpan);
-                    setTimeSpans.Add(currentSetSpan);
+                        TimeSpan currentSetSpan = new TimeSpan();
+                        foreach (var exercise in set.Timers)
+                        {
+                            currentSetSpan = currentSetSpan.Add(exercise.Duration);
+                            for (int j = 0; j < exercise.Repetitions; j++)
+                            {
+                                exerciseTimeSpans.Add(exercise.Duration);
+                            }                            
+                        }
+                        setSpans.Add(currentSetSpan);
+                        setTimeSpans.Add(currentSetSpan);
+                    }                    
                 }
                 var exerciseTask = new Task(async () => {
                     while (exerciseTimeSpans.Count > 0)
@@ -137,6 +143,7 @@ namespace TimerApp.Control
                     OnWorkoutTimerFinishedEvent(this, new WorkoutFinishedEventArgs(true));
                     workoutTimer.Stop();
                 });
+                exerciseTask.Start();
                 setTask.Start();
                 workoutTimer.Start();
                 workoutTask.Start();

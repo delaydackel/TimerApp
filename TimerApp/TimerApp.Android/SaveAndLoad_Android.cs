@@ -19,21 +19,30 @@ namespace TimerApp.Droid
     {
         public string CreateDBPath()
         {
-            string fileFolder = string.Empty;
-
-            // Zusammensetzen des Dateipfades
-
-            var documentsPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "offline");
-
-            // Sicherstellen, dass der Pfad an den geschrieben werden soll existiert und ggf. angelegt wird
-
-            if (!Directory.Exists(documentsPath))
+            try
             {
-                System.IO.Directory.CreateDirectory(documentsPath);
+                string fileFolder = string.Empty;
+
+                // Zusammensetzen des Dateipfades
+
+                var documentsPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "workouts");
+
+                // Sicherstellen, dass der Pfad an den geschrieben werden soll existiert und ggf. angelegt wird
+
+                if (!Directory.Exists(documentsPath))
+                {
+                    System.IO.Directory.CreateDirectory(documentsPath);
+                }
+
+                return Path.Combine(documentsPath, "workouts.db");
+
+
             }
+            catch (Exception ex)
+            {
 
-            return Path.Combine(documentsPath, "offline.db");
-
+                throw ex;
+            }
         }
     }
 }

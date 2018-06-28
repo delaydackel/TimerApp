@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TimerApp.Model
 {
-    interface ISaveAndLoad
+    public interface ISaveAndLoad
     {
         string CreateDBPath();
     }
