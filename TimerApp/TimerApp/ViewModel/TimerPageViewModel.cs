@@ -80,11 +80,30 @@ namespace TimerApp.ViewModel
         {
             var manager = new TimerManager();
             manager.StartWorkoutAsync(currentWorkout);
+            
             manager.ExerciseTimerElapsedEvent += manager_ExerciseTimerElapsedEvent;
             manager.ExerciseTimerFinishedEvent += Manager_ExerciseTimerFinishedEvent;
-            manager.WorkoutTimerElapsedEvent += manager_WorkoutTimerElapsedEvent;
+            manager.SetTimerElapsedEvent += Manager_SetTimerElapsedEvent;
+            manager.SetTimerFinishedEvent += Manager_SetTimerFinishedEvent;
+            manager.WorkoutTimerElapsedEvent += manager_WorkoutTimerElapsedEvent;            
+            manager.WorkoutTimerFinishedEvent += Manager_WorkoutTimerFinishedEvent;
             
             
+        }
+
+        private void Manager_SetTimerElapsedEvent(object sender, ElapsedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Manager_WorkoutTimerFinishedEvent(object sender, WorkoutFinishedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Manager_SetTimerFinishedEvent(object sender, SetFinishedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void Manager_ExerciseTimerFinishedEvent(object sender, ExerciseFinishedEventArgs e)
