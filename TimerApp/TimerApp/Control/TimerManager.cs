@@ -24,7 +24,8 @@ namespace TimerApp.Control
         private TimeSpan workoutSpan = new TimeSpan();
         private TimeSpan setSpan = new TimeSpan();
         private TimeSpan exerciseSpan = new TimeSpan();
-        private Queue<TimeSpan> setTimeSpans = new Queue<TimeSpan>();
+        private List<TimeSpan> setTimeSpans = new List<TimeSpan>();
+        private List<TimeSpan> exerciseTimeSpans = new List<TimeSpan>();
         private Workout currentWorkout;
         public TimerManager()
         {
@@ -88,16 +89,28 @@ namespace TimerApp.Control
                 foreach (var exercise in set.Timers)
                 {
                     currentSetSpan.Add(exercise.Duration);
-                }
+                    exerciseTimeSpans.Add(exercise.Duration);
+                }   
                 setSpans.Add(currentSetSpan);
-                setTimeSpans.Enqueue(currentSetSpan);
+                setTimeSpans.Add(currentSetSpan);
             }
+            var exerciseTask = new Task( async() => {
+                while (exerciseTimeSpans.Count > 0)
+                {
+                    exerciseTimer.Start();
+                    await Task.Delay(exerciseTimeSpans[0].Seconds);
+                    exerciseTimeSpans.RemoveAt(0);
+                    OnExerciseTimerFinishedEvent(this, new ExerciseFinishedEventArgs(true));
+                }
+                exerciseTimer.Stop();
+            });
             var setTask = new Task(async ()=>
             {
                 while (setTimeSpans.Count>0)
                 {
                     setTimer.Start();
-                    await Task.Delay(setTimeSpans.Dequeue().Seconds);
+                    await Task.Delay(setTimeSpans[0].Seconds);
+                    setTimeSpans.RemoveAt(0);
                     OnSetTimerFinishedEvent(this,new SetFinishedEventArgs(true));
                 }
                 setTimer.Stop();
