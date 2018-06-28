@@ -17,6 +17,8 @@ namespace TimerApp.ViewModel
             set { timerList = value; OnPropertyChanged(); }
         }
 
+        public string SetId { get; internal set; }
+
         public TimerCreationPageViewModel()
         {
             timerList = new ObservableCollection<AtomicTimer>();
@@ -46,10 +48,10 @@ namespace TimerApp.ViewModel
 
         }
 
-        private void LoadTimers()
+        public void LoadTimers()
         {
             var dbMgr = new DatabaseManager();
-            
+            //benutze setid um richtgen Datensatz zu ladnen
             //throw new NotImplementedException();
         }
 

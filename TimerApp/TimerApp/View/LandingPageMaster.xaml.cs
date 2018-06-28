@@ -35,7 +35,8 @@ namespace TimerApp.View
                 {
                     new LandingPageMenuItem { Id = 0, Title = "Timer",TargetType = typeof(View.TimerPage) },
                     new LandingPageMenuItem { Id = 1, Title = "Playlists" ,TargetType = typeof(View.PlaylistPage)},
-                    new LandingPageMenuItem {Id = 2, Title = "Workouts", TargetType = typeof(View.TimerCreationPage)}
+                    new LandingPageMenuItem {Id = 2, Title = "Workouts", TargetType = typeof(View.TimerCreationPage)},
+                    new LandingPageMenuItem{Id=3, Title = "Sets", TargetType = typeof(View.TimerSetCreationPage)}
                 });
             }
             

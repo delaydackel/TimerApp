@@ -16,23 +16,40 @@ namespace TimerApp.View
 	public partial class TimerCreationPage : ContentPage
 	{
         private TimerCreationPageViewModel Vm;
+        public SfListView TimerListView;
+        public Grid layoutGrid;
         public TimerCreationPage ()
 		{
 			InitializeComponent ();
             //timerItemTemplate = CreateTimerItemTemplate();
             //timerSelectedItemTemplate = CreateTimerSelectedItemTemplate();
             Vm = new TimerCreationPageViewModel();
+            layoutGrid = LayoutGrid;
+            TimerListView = new SfListView()
+            {
+
+                HorizontalOptions = LayoutOptions.CenterAndExpand,
+                VerticalOptions = LayoutOptions.CenterAndExpand,
+                
+            };
+            layoutGrid.Children.Add(TimerListView, 1, 1);
             TimerListView.VerticalOptions = LayoutOptions.FillAndExpand;
             TimerListView.HorizontalOptions = LayoutOptions.FillAndExpand;
             TimerListView.AutoFitMode = AutoFitMode.None;
             TimerListView.ItemSize = 100;
             TimerListView.SelectionMode = SelectionMode.Single;
+            
+
+            TimerListView.SetBinding(SfListView.ItemsSourceProperty, "TimerList");
             TimerListView.ItemTemplate = CreateTimerItemTemplate();
             
             TimerListView.SelectionChanged += TimerListView_SelectionChanged;
-
-
-
+            Content = layoutGrid;
+        }
+        public TimerCreationPage(string setId):this()
+        {
+            Vm.SetId = setId;
+            Vm.LoadTimers();
         }
 
         private DataTemplate CreateTimerSelectedItemTemplate()
@@ -167,7 +184,7 @@ namespace TimerApp.View
             BindingContext = Vm;
         }
 
-        private DataTemplate CreateTimerItemTemplate()
+        public virtual DataTemplate CreateTimerItemTemplate()
         {
             DataTemplate template = new DataTemplate(() =>
             {

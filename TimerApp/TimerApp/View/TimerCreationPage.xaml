@@ -24,16 +24,7 @@
                    VerticalOptions="Start">
                 
             </Entry>
-            <syncfusion:SfListView x:Name="TimerListView"
-                      HorizontalOptions="CenterAndExpand"
-                                   VerticalOptions="CenterAndExpand"
-                      ItemsSource="{Binding TimerList}"
-                      
-                      Grid.Row="1"
-                      Grid.Column="1">
-
-
-            </syncfusion:SfListView>
+            
             <Button x:Name="AddTimerButton" Text="Neuer Timer" Clicked="AddTimerButton_Clicked" Grid.Row="2" Grid.Column="1"></Button>
         </Grid>
     </ContentPage.Content>
