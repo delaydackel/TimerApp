@@ -42,7 +42,7 @@ namespace TimerApp.View
 
         private void TimerStartGestureRecognizer_Tapped(object sender, EventArgs e)
         {
-
+            Vm.StartNextTimer();
         }
     }
 }
