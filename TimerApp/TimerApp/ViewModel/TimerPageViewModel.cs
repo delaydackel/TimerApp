@@ -1,8 +1,10 @@
-﻿
+﻿using Android.App;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Timers;
@@ -17,6 +19,7 @@ namespace TimerApp.ViewModel
     {
         private Workout currentWorkout;
         public DisplayTimer CurrentTimer { get; set; }
+        private TimerManager manager = new TimerManager();
         private string name;
         private string duration;
         private uint repetitions;
@@ -47,6 +50,7 @@ namespace TimerApp.ViewModel
             CurrentTimer.Repetitions = 5;
 
             Duration = CurrentTimer.Duration.ToString();
+
             currentWorkout = new Workout()
             {
                 Playlist = string.Empty,
@@ -67,12 +71,7 @@ namespace TimerApp.ViewModel
             } } }
 
             };
-
-            
         }
-
-        
-
         public TimerPageViewModel(Workout workout)
         {
             currentWorkout = workout;
@@ -81,38 +80,80 @@ namespace TimerApp.ViewModel
 
         internal void StartNextTimer()
         {
-            var manager = new TimerManager();
-            manager.StartWorkoutAsync(currentWorkout);
-            
+            //var manager = new TimerManager();
+
             manager.ExerciseTimerElapsedEvent += manager_ExerciseTimerElapsedEvent;
             manager.ExerciseTimerFinishedEvent += Manager_ExerciseTimerFinishedEvent;
             manager.SetTimerElapsedEvent += Manager_SetTimerElapsedEvent;
             manager.SetTimerFinishedEvent += Manager_SetTimerFinishedEvent;
-            manager.WorkoutTimerElapsedEvent += manager_WorkoutTimerElapsedEvent;            
+            manager.WorkoutTimerElapsedEvent += manager_WorkoutTimerElapsedEvent;
             manager.WorkoutTimerFinishedEvent += Manager_WorkoutTimerFinishedEvent;
-            
-            
         }
 
-        private void Manager_SetTimerElapsedEvent(object sender, ElapsedEventArgs e)
+
+        public bool isRunning;
+
+        internal void PauseTimer()
         {
-            //throw new NotImplementedException();
+            if(isRunning)
+            {
+                isRunning = false;
+
+                manager.PauseTimer(currentWorkout);
+            }
+        }
+
+        internal void StartTimer()
+        {
+            if(!isRunning)
+            {
+                isRunning = true;
+
+                manager.StartWorkout(currentWorkout);
+            }
+
         }
 
         private void Manager_WorkoutTimerFinishedEvent(object sender, WorkoutFinishedEventArgs e)
         {
-            //throw new NotImplementedException();
+            throw new NotImplementedException();
         }
 
         private void Manager_SetTimerFinishedEvent(object sender, SetFinishedEventArgs e)
         {
-            //throw new NotImplementedException();
+            throw new NotImplementedException();
+        }
+
+        private void Manager_SetTimerElapsedEvent(object sender, ElapsedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void Manager_ExerciseTimerFinishedEvent(object sender, ExerciseFinishedEventArgs e)
         {
-            CurrentTimer = new DisplayTimer() { Duration = new TimeSpan(2, 3, 4), Name = "DOENER", Repetitions = 5 };//dernächstetimer im timerset
-            //throw new NotImplementedException();
+            var nextDisplayTimer = new DisplayTimer();
+            var currentExerciseRepetitions = 0;
+            var currentSetRepetitions = 0;
+            List<AtomicTimer> allTimers = new List<AtomicTimer>();
+            List<TimerSet> allSets = new List<TimerSet>();
+            foreach (var set in currentWorkout.Timers)
+            {
+                allSets.Add(set);
+                foreach (var timer in set.Timers)
+                {
+                    allTimers.Add(timer);
+                    //currentExerciseRepetitions = timer.Repetitions;
+                }
+            }
+            while (allTimers.Count() != 0)
+            {
+                CurrentTimer = new DisplayTimer();
+                var blub = allTimers[0];
+                CurrentTimer.Duration = blub.Duration;
+                CurrentTimer.Repetitions = (uint)blub.Repetitions;
+                allTimers.RemoveAt(0);
+            }
+
         }
 
         private void manager_WorkoutTimerElapsedEvent(object sender, ElapsedEventArgs e)
