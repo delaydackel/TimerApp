@@ -219,7 +219,7 @@ namespace TimerApp.View
 
         }
 
-        private void AddTimerButton_Clicked(object sender, EventArgs e)
+        public virtual void AddItemButton_Clicked(object sender, EventArgs e)
         {
             Vm.AddTimer();
         }

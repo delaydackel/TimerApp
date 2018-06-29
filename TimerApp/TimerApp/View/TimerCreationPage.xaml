@@ -25,7 +25,7 @@
                 
             </Entry>
             
-            <Button x:Name="AddTimerButton" Text="Neuer Timer" Clicked="AddTimerButton_Clicked" Grid.Row="2" Grid.Column="1"></Button>
+            <Button x:Name="AddItemButton" Text="Neuer Timer" Clicked="AddItemButton_Clicked" Grid.Row="2" Grid.Column="1"></Button>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

@@ -99,7 +99,7 @@ namespace TimerApp.ViewModel
             {
                 isRunning = false;
 
-                manager.PauseTimer(currentWorkout);
+                manager.PauseTimer();
             }
         }
 
@@ -109,7 +109,7 @@ namespace TimerApp.ViewModel
             {
                 isRunning = true;
 
-                manager.StartWorkout(currentWorkout);
+                manager.StartWorkoutAsync(currentWorkout);
             }
 
         }
