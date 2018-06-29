@@ -78,6 +78,10 @@ namespace TimerApp.View
 
             return template;
         }
-
+        protected override void OnDisappearing()
+        {
+            Vm.SaveTimerSets(WorkoutNameEntry.Text);
+            base.OnDisappearing();
+        }
     }
 }
