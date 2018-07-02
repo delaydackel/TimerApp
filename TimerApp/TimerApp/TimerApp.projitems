@@ -16,6 +16,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Control\AppCore.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Control\ExerciseFinishedEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Control\FinishedEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Control\IAppService.cs" />
@@ -39,6 +40,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\TimerPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\TimerSetCreationPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\TimerSettingPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\WorkoutCreationPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)View\LandingPage.xaml.cs">
       <DependentUpon>LandingPage.xaml</DependentUpon>
       <SubType>Code</SubType>

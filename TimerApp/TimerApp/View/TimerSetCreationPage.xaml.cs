@@ -15,7 +15,7 @@ namespace TimerApp.View
 	public partial class TimerSetCreationPage : ContentPage
 	{
         private TimerSetCreationPageViewModel Vm;
-        public ListView TimerSetListView;
+        public ListView lv;
         public Button AddItemButton;
         public Grid LayoutGrid;
         private DataTemplate timerSetListViewItemTemplate;
@@ -33,18 +33,16 @@ namespace TimerApp.View
 
             AddItemButton = new Button() { Text = "+" };
 
-            TimerSetListView = new ListView()
+            lv = new ListView()
             {
-                BackgroundColor = Color.Red,
                 HorizontalOptions = LayoutOptions.CenterAndExpand,
                 VerticalOptions = LayoutOptions.CenterAndExpand,
-
             };
-            TimerSetListView.SetBinding(ListView.ItemsSourceProperty, "TimerSets");
-            TimerSetListView.ItemSelected += TimerSetListView_ItemSelected;
-            timerSetListViewItemTemplate = new DataTemplate(typeof(TimerSet));
+            lv.SetBinding(ListView.ItemsSourceProperty, "TimerSets");
+            lv.ItemSelected += TimerSetListView_ItemSelected;
+            
             timerSetListViewItemTemplate = CreateTimerSetItemTemplate();
-            TimerSetListView.ItemTemplate = timerSetListViewItemTemplate;
+            lv.ItemTemplate = timerSetListViewItemTemplate;
             //TimerSetListView = new SfListView()
             //{
 
@@ -53,7 +51,7 @@ namespace TimerApp.View
 
             //};
 
-            LayoutGrid.Children.Add(TimerSetListView, 1, 0);
+            LayoutGrid.Children.Add(lv, 1, 0);
             LayoutGrid.Children.Add(AddItemButton,1,1);
             //TimerSetListView.VerticalOptions = LayoutOptions.FillAndExpand;
             //TimerSetListView.HorizontalOptions = LayoutOptions.FillAndExpand;
@@ -71,7 +69,10 @@ namespace TimerApp.View
             AddItemButton.Clicked += AddItemButton_Clicked;
             Content = LayoutGrid;
 		}
-
+        public TimerSetCreationPage(string setId):this()
+        {
+            Vm.SetId = setId;
+        }
 
         private void TimerSetListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
@@ -134,19 +135,6 @@ namespace TimerApp.View
             });
 
             return template;
-        }
-
-        private void DecreaseRepetitionsButton_Clicked(object sender, EventArgs e)
-        {
-            // throw new NotImplementedException();
-           // Vm.DecreaseRepetitions(((sender as ListView).SelectedItem as TimerSet));
-        }
-
-        private void IncreaseRepetitionsButton_Clicked(object sender, EventArgs e)
-        {
-           // (((sender as Button).Parent as Grid).Parent as ListView).ItemsSource as obser
-           // Vm.IncreaseRepetitions(((sender as ListView).SelectedItem as TimerSet));
-            //throw new NotImplementedException();
         }
 
         protected override void OnDisappearing()

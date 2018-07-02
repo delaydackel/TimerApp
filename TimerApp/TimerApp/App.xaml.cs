@@ -1,4 +1,5 @@
 using System;
+using TimerApp.Control;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -7,10 +8,11 @@ namespace TimerApp
 {
 	public partial class App : Application
 	{
+        public static AppCore appCore;
 		public App ()
 		{
 			InitializeComponent();
-
+            appCore = AppCore.StartAppCore();
             //var navPage = new NavigationPage(new PageOne()) { Title = "Title" };
             var mdp = new View.LandingPage();
             //    new MasterDetailPage()

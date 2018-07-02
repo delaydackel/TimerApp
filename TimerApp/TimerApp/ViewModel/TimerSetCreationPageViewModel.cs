@@ -36,9 +36,10 @@ namespace TimerApp.ViewModel
 
         public void LoadTimerSets(string workoutId)
         {
-            var dbMgr = new DatabaseManager();
+            //var dbMgr = new DatabaseManager();
 
             //TODO timerSets = dbMgr.readEntry(workoutId);
+            // hier das aktuelle set aus dem appcore.currentworkout ziehen
             if (timerSets.Count() == 0 || string.Equals(workoutId, string.Empty))
             {
                 timerSets.Add(new TimerSet() { Name = "Item", Repetitions = 1, Timers = new List<AtomicTimer>() });
@@ -58,19 +59,7 @@ namespace TimerApp.ViewModel
             //throw new NotImplementedException();
         }
 
-        internal void IncreaseRepetitions(TimerSet timerSet)
-        {
-            //TimerSets[TimerSets.IndexOf(timerSet)].Repetitions++;
-            //throw new NotImplementedException();
-        }
-
-        internal void DecreaseRepetitions(TimerSet timerSet)
-        {
-            if (timerSet.Repetitions > 0)
-            {
-                TimerSets[TimerSets.IndexOf(timerSet)].Repetitions--;
-            }
-        }
+     
    
     }
 }

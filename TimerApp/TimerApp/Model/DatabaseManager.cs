@@ -18,7 +18,6 @@ namespace TimerApp.Model
         {
             try
             {
-
                 var documentsPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "workouts");
                 var dbpath = Path.Combine(documentsPath, "workouts.db");
                 mDatabase = dbpath;// DependencyService.Get<ISaveAndLoad>().CreateDBPath();
@@ -32,8 +31,27 @@ namespace TimerApp.Model
         }
 
         //public string value, name, date, key;
+        public List<Workout> LoadWorkouts()
+        {
+            var sections = getKeyValuePairs("Workouts");
+            if (sections==null)
+            {
+                return null;
+            }
+            List<Workout> results = new List<Workout>();
 
-        public bool writeEntry(string section, string key, object value, string name)
+            foreach (var item in sections)
+            {
+                var result = new Workout();
+                result.Id = item[0];
+                result.Timers = Newtonsoft.Json.JsonConvert.DeserializeObject<List<TimerSet>>(item[1]);
+                result.Playlist = item[2];
+                results.Add(result);
+            }
+            
+            return results;
+        }
+        public bool writeEntry(string section, string key, object value)
         {
             SqlNonQuery nonquery = new SqlNonQuery();
 
@@ -64,13 +82,11 @@ namespace TimerApp.Model
                     var table = builder;
                     table.addTable(section);
                     table.addValue("Key", key);
-                    table.addValue("Json", value);                    
-                    table.addValue("Name", name);
+                    table.addValue("Json", value);
                     if (isUpdate)
                     {
                         table.addCondition("Key", "=", key);
-                        table.addCondition("Json", "=", value);                        
-                        table.addCondition("Name", "=", name);
+                        table.addCondition("Json", "=", value);
                     }
                 }
             }
@@ -81,16 +97,71 @@ namespace TimerApp.Model
 
             return result > 0;
         }
+        //public bool writeEntry(string section, string key, object value, string name, string setId)
+        //{
+        //    SqlNonQuery nonquery = new SqlNonQuery();
 
-        internal void SaveWorkout(ObservableCollection<AtomicTimer> timerList, string name)
+        //    if (!(getSections().Contains(section)))
+        //    {
+        //        if (!createTable())
+        //        {
+        //            return false;
+        //        }
+        //    }
+
+        //    bool isUpdate = readEntry(section, key) != null;
+
+        //    SqlStringBuilder builder;
+        //    if (value == null)
+        //    {
+        //        builder = SqlStringBuilderFactory.createDELETE();
+        //        {
+        //            var withBlock = builder;
+        //            withBlock.addTable(section);
+        //            withBlock.addCondition("Key", "=", key);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        builder = isUpdate ? Data.SqlStringBuilderFactory.createUPDATE() : Data.SqlStringBuilderFactory.createINSERT();
+        //        {
+        //            var table = builder;
+        //            table.addTable(section);
+        //            table.addValue("Key", key);
+        //            table.addValue("Json", value);
+        //            table.addValue("Name", name);
+        //            table.addValue("SetId", setId);
+        //            if (isUpdate)
+        //            {
+        //                table.addCondition("Key", "=", key);
+        //                table.addCondition("Json", "=", value);
+        //                table.addCondition("Name", "=", name);
+        //                table.addCondition("SetId", "=", setId);
+        //            }
+        //        }
+        //    }
+
+        //    string qs = builder.ToString();
+        //    Dictionary<string, object> @params = builder.getParameterValues();
+        //    int result = nonquery.execute(qs, mDatabase, @params);
+
+        //    return result > 0;
+        //}
+        //internal void SaveObsCollOfTimers(ObservableCollection<AtomicTimer> timerList, string name, string setId)
+        //{
+        //    var values = Newtonsoft.Json.JsonConvert.SerializeObject(timerList);
+        //    writeEntry("Timers", Guid.NewGuid().ToString(), values, name, setId);
+        //}
+        //internal void SaveObsCollOfTimerSets(ObservableCollection<TimerSet> timerSets, string name, string setId, string workoutId)
+        //{
+        //    var values = Newtonsoft.Json.JsonConvert.SerializeObject(timerSets);
+        //    writeEntry("TimerSets", Guid.NewGuid().ToString(), values, name, setId);
+        //}
+        internal void SaveWorkouts(List<Workout> workouts)
         {
-            var values = Newtonsoft.Json.JsonConvert.SerializeObject(timerList);
-            //writeEntry(TABLENAME, downloadId, values, DateTime.Now.ToString(), downloadSetName);
-
-            writeEntry(TABLENAME, Guid.NewGuid().ToString(), values, name);
-
+            var values = Newtonsoft.Json.JsonConvert.SerializeObject(workouts);
+            writeEntry(TABLENAME, "WORKOUT", values);
         }
-
         private bool createTable()
         {
             SqlNonQuery nonquery = new SqlNonQuery();
@@ -102,7 +173,6 @@ namespace TimerApp.Model
                 table.addTable(TABLENAME);
                 table.addColumn("Key", "VARCHAR", 100, false);
                 table.addColumn("Json", "VARCHAR", 50000, false);             
-                table.addColumn("Name", "VARCHAR", 200, false);
                 table.setPrimaryKey("Key");
             }
 
@@ -110,7 +180,7 @@ namespace TimerApp.Model
             Dictionary<string, object> @params = builder.getParameterValues();
             int result = nonquery.execute(qs, mDatabase, @params);
             return getSections().Contains(TABLENAME);
-        }
+        }   
 
         public ArrayList getSections()
         {
@@ -165,8 +235,7 @@ namespace TimerApp.Model
                 var table = builder;
                 table.addTable(section);
                 table.addColumn("Key");
-                table.addColumn("Json");
-                table.addColumn("Name");
+                table.addColumn("Json");                
             }
             string qs = builder.ToString();
             Dictionary<string, object> @params = builder.getParameterValues();
@@ -201,11 +270,7 @@ namespace TimerApp.Model
                 return null;
 
             return dt[0][0];
-        }
-        void LoadResultFromDatabase(string UID)
-        {
-
-        }
+        }   
 
         //private object readEntry(string section, string key)
         //{

@@ -3,13 +3,18 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
+using Xamarin.Forms;
 
 namespace TimerApp.Model
 {
-    class Workout : INotifyPropertyChanged
+    public class Workout : BindableObject, INotifyPropertyChanged
     {
         private List<TimerSet> timers;// = new List<TimerSet>();
         private string playlist;
+        private string id;
+        private string name;
+  
+        public string Id { get { return id; } set { id = value; } }
 
 
         public List<TimerSet> Timers
@@ -22,7 +27,15 @@ namespace TimerApp.Model
             get { return playlist; }
             set { playlist = value; }
         }
-
+        public Workout()
+        {
+            id = string.Empty;
+        }
+        public Workout(string uid)
+        {
+            id = uid;
+        }
+        public string Name { get { return name; } set { name = value; OnPropertyChanged(); } }
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
