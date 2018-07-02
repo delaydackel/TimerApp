@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace TimerApp.Model
 {
-    class TimerSet: INotifyPropertyChanged
+    class TimerSet: BindableObject, INotifyPropertyChanged
     {
         //public TimerSet() : base()
         //{
@@ -31,6 +33,35 @@ namespace TimerApp.Model
         {
             var handler = PropertyChanged;
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+        }
+        private ICommand increaseRepetitionsCommand;
+        public ICommand IncreaseRepetitionsCommand
+        {
+            get
+            {
+                if (increaseRepetitionsCommand == null)
+                {
+                    increaseRepetitionsCommand = new Command(() => Repetitions++);
+                }
+                return increaseRepetitionsCommand;
+            }
+        }
+        private ICommand decreaseRepetitionsCommand;
+        public ICommand DecreaseRepetitionsCommand
+        {
+            get
+            {
+                if (decreaseRepetitionsCommand == null)
+                {
+                    decreaseRepetitionsCommand = new Command(() => {
+                        if (Repetitions>0)
+                        {
+                            Repetitions--;
+                        }
+                    });
+                }
+                return decreaseRepetitionsCommand;
+            }
         }
         //private List<AtomicTimer> elements;
         //private uint repetitions;

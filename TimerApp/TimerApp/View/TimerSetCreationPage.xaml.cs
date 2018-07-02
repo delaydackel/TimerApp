@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TimerApp.Model;
 using TimerApp.ViewModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -17,6 +18,7 @@ namespace TimerApp.View
         public ListView TimerSetListView;
         public Button AddItemButton;
         public Grid LayoutGrid;
+        private DataTemplate timerSetListViewItemTemplate;
         public TimerSetCreationPage () 
 		{
 			InitializeComponent ();
@@ -31,10 +33,18 @@ namespace TimerApp.View
 
             AddItemButton = new Button() { Text = "+" };
 
-            TimerSetListView = new ListView();
+            TimerSetListView = new ListView()
+            {
+                BackgroundColor = Color.Red,
+                HorizontalOptions = LayoutOptions.CenterAndExpand,
+                VerticalOptions = LayoutOptions.CenterAndExpand,
+
+            };
             TimerSetListView.SetBinding(ListView.ItemsSourceProperty, "TimerSets");
             TimerSetListView.ItemSelected += TimerSetListView_ItemSelected;
-            TimerSetListView.ItemTemplate = CreateTimerSetItemTemplate();
+            timerSetListViewItemTemplate = new DataTemplate(typeof(TimerSet));
+            timerSetListViewItemTemplate = CreateTimerSetItemTemplate();
+            TimerSetListView.ItemTemplate = timerSetListViewItemTemplate;
             //TimerSetListView = new SfListView()
             //{
 
@@ -43,7 +53,7 @@ namespace TimerApp.View
 
             //};
 
-            LayoutGrid.Children.Add(TimerSetListView, 0, 1);
+            LayoutGrid.Children.Add(TimerSetListView, 1, 0);
             LayoutGrid.Children.Add(AddItemButton,1,1);
             //TimerSetListView.VerticalOptions = LayoutOptions.FillAndExpand;
             //TimerSetListView.HorizontalOptions = LayoutOptions.FillAndExpand;
@@ -85,32 +95,39 @@ namespace TimerApp.View
         protected override void OnAppearing()
         {
             base.OnAppearing();
+            BindingContext = Vm;
         }
         private DataTemplate CreateTimerSetItemTemplate()
         {
             DataTemplate template = new DataTemplate(() =>
             {
                 var grid = new Grid();
+                //grid.BackgroundColor = Color.Blue;
                 //grid.HeightRequest = 50;
                 grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
                 //            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
                 var nameLabel = new Label { FontAttributes = FontAttributes.Bold };
-                var durationLabel = new Label();
+                //var durationLabel = new Label();
                 var repetitionsLabel = new Label { HorizontalTextAlignment = TextAlignment.End };
                 var increaseRepetitionsButton = new Button() { Text = "+" };
                 var decreaseRepetitionsButton = new Button() { Text = "-" };
 
-                increaseRepetitionsButton.Clicked += IncreaseRepetitionsButton_Clicked;
-                decreaseRepetitionsButton.Clicked += DecreaseRepetitionsButton_Clicked;
+                increaseRepetitionsButton.SetBinding(Button.CommandProperty, "IncreaseRepetitionsCommand");
+                decreaseRepetitionsButton.SetBinding(Button.CommandProperty, "DecreaseRepetitionsCommand");
+                //increaseRepetitionsButton.Clicked += IncreaseRepetitionsButton_Clicked;
+                //decreaseRepetitionsButton.Clicked += DecreaseRepetitionsButton_Clicked;
                 nameLabel.SetBinding(Label.TextProperty, "Name");
-                durationLabel.SetBinding(Label.TextProperty, "DurationText");
-                repetitionsLabel.SetBinding(Label.TextProperty, "RepetitionsText");
+                //durationLabel.SetBinding(Label.TextProperty, "Repetitions");
+                repetitionsLabel.SetBinding(Label.TextProperty, "Repetitions");
 
-                grid.Children.Add(nameLabel);
-                grid.Children.Add(durationLabel, 1, 0);
-                grid.Children.Add(repetitionsLabel, 2, 0);
-                grid.Children.Add(increaseRepetitionsButton, 3, 0);
-                grid.Children.Add(decreaseRepetitionsButton, 4, 0);
+                grid.Children.Add(nameLabel,0,0);                
+                grid.Children.Add(repetitionsLabel, 1, 0);
+                grid.Children.Add(increaseRepetitionsButton, 2, 0);
+                grid.Children.Add(decreaseRepetitionsButton, 3, 0);
 
 
                 return new ViewCell { View = grid };
@@ -121,11 +138,14 @@ namespace TimerApp.View
 
         private void DecreaseRepetitionsButton_Clicked(object sender, EventArgs e)
         {
-           // throw new NotImplementedException();
+            // throw new NotImplementedException();
+           // Vm.DecreaseRepetitions(((sender as ListView).SelectedItem as TimerSet));
         }
 
         private void IncreaseRepetitionsButton_Clicked(object sender, EventArgs e)
         {
+           // (((sender as Button).Parent as Grid).Parent as ListView).ItemsSource as obser
+           // Vm.IncreaseRepetitions(((sender as ListView).SelectedItem as TimerSet));
             //throw new NotImplementedException();
         }
 
