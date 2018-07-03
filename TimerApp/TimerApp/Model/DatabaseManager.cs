@@ -38,16 +38,18 @@ namespace TimerApp.Model
             {
                 return null;
             }
-            List<Workout> results = new List<Workout>();
+            string base64decoded = Base64Decode(sections[0][1]);
+            List<Workout> results = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Workout>>(base64decoded);
 
-            foreach (var item in sections)
-            {
-                var result = new Workout();
-                result.Id = item[0];
-                result.Timers = Newtonsoft.Json.JsonConvert.DeserializeObject<List<TimerSet>>(item[1]);
-                result.Playlist = item[2];
-                results.Add(result);
-            }
+            //foreach (var item in sections)
+            //{
+            //    var result = new Workout();
+            //    result.Id = item[0];
+            //    result.Timers = Newtonsoft.Json.JsonConvert.DeserializeObject<List<TimerSet>>(item[1]);
+            //    result.Playlist = item[2];
+            //    result.Name = item[3];
+            //    results.Add(result);
+            //}
             
             return results;
         }
@@ -86,7 +88,7 @@ namespace TimerApp.Model
                     if (isUpdate)
                     {
                         table.addCondition("Key", "=", key);
-                        table.addCondition("Json", "=", value);
+                        //table.addCondition("Json", "=", value);
                     }
                 }
             }
@@ -159,8 +161,13 @@ namespace TimerApp.Model
         //}
         internal void SaveWorkouts(List<Workout> workouts)
         {
-            var values = Newtonsoft.Json.JsonConvert.SerializeObject(workouts);
-            writeEntry(TABLENAME, "WORKOUT", values);
+           
+            string values = Newtonsoft.Json.JsonConvert.SerializeObject(workouts);
+            //dirty hax cuz json macht sachen
+            string base64Values = Base64Encode(values);
+            writeEntry(TABLENAME, "WORKOUT", base64Values);
+            //var sections = getKeyValuePairs(TABLENAME);
+            //string decoded = Base64Decode(sections[0][1]);
         }
         private bool createTable()
         {
@@ -172,7 +179,7 @@ namespace TimerApp.Model
                 var table = builder;
                 table.addTable(TABLENAME);
                 table.addColumn("Key", "VARCHAR", 100, false);
-                table.addColumn("Json", "VARCHAR", 50000, false);             
+                table.addColumn("Json", "VARCHAR", 5000000, false);             
                 table.setPrimaryKey("Key");
             }
 
@@ -270,11 +277,22 @@ namespace TimerApp.Model
                 return null;
 
             return dt[0][0];
-        }   
+        }
 
         //private object readEntry(string section, string key)
         //{
         //    throw new NotImplementedException();
         //}
+        public static string Base64Encode(string plainText)
+        {
+            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
+            return System.Convert.ToBase64String(plainTextBytes);
+        }
+        public static string Base64Decode(string base64EncodedData)
+        {
+            var base64EncodedBytes = System.Convert.FromBase64String(base64EncodedData);
+            return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
+        }
     }
+    
 }

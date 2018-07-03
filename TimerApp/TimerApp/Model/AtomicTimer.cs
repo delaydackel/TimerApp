@@ -28,7 +28,8 @@ namespace TimerApp.Model
         }
         public string DurationText
         {
-            get { return duration.ToString(); }            
+            get { return duration.ToString(); }
+           
         }
         public int Repetitions
         {
@@ -38,6 +39,7 @@ namespace TimerApp.Model
         public string RepetitionsText
         {
             get { return repetitions.ToString(); }
+    
         }
 
         public bool IsSelected {
@@ -46,11 +48,12 @@ namespace TimerApp.Model
         }
 
         //public KeyCollection keys;
-        public AtomicTimer():base()
+        public AtomicTimer()
         {
-            //this.Add("Name",string.Empty);
-            //this.Add("Duration", new TimeSpan(0));
-            //this.Add("Repetitions", 0);
+            Name = "Timer";
+            Repetitions = 1;
+            Duration = new TimeSpan(0, 0, 1);
+            IsSelected = false;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

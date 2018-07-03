@@ -20,6 +20,7 @@ namespace TimerApp.ViewModel
         }
 
         public string SetId { get; internal set; }
+        public string WorkoutId { get; internal set; }
 
         public TimerCreationPageViewModel()
         {
@@ -72,7 +73,7 @@ namespace TimerApp.ViewModel
 
         internal void AddTimer()
         {
-            TimerList.Add(new AtomicTimer() { Name = "Timer",Repetitions=1});
+            TimerList.Add(new AtomicTimer());// { Name = "Timer",Repetitions=1,Duration = new TimeSpan(0,0,1),IsSelected = false});
          //   throw new NotImplementedException();
         }
         internal void SaveWorkouts(string name)

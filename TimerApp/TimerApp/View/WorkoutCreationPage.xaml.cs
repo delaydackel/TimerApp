@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TimerApp.Control;
 using TimerApp.Model;
 using TimerApp.ViewModel;
 using Xamarin.Forms;
@@ -37,6 +38,7 @@ namespace TimerApp.View
             {
                 HorizontalOptions = LayoutOptions.CenterAndExpand,
                 VerticalOptions = LayoutOptions.CenterAndExpand,
+                BackgroundColor = Color.Red
             };
             workoutListViewItemTemplate = CreateWorkoutItemTemplate();
             lv.ItemTemplate = workoutListViewItemTemplate;
@@ -51,11 +53,14 @@ namespace TimerApp.View
 
         private void AddItemButton_Clicked(object sender, EventArgs e)
         {
+            Vm.AddWorkout();
+
             //throw new NotImplementedException();
         }
 
         private void Lv_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
+            AppCore.CurrentWorkout = (e.SelectedItem as Workout);
             Navigation.PushAsync(new TimerSetCreationPage((e.SelectedItem as Workout).Id));
         }
 
@@ -64,7 +69,7 @@ namespace TimerApp.View
             DataTemplate template = new DataTemplate(() =>
             {
                 var grid = new Grid();
-                //grid.BackgroundColor = Color.Blue;
+                grid.BackgroundColor = Color.Blue;
                 //grid.HeightRequest = 50;
                 grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
                 grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
@@ -84,6 +89,12 @@ namespace TimerApp.View
         {
             Vm.LoadWorkouts();
             base.OnAppearing();
+            BindingContext = Vm;
+        }
+        protected override void OnDisappearing()
+        {
+            Vm.SaveWorkouts();
+            base.OnDisappearing();
         }
     }
 }

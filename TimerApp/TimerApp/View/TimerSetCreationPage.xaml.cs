@@ -69,14 +69,15 @@ namespace TimerApp.View
             AddItemButton.Clicked += AddItemButton_Clicked;
             Content = LayoutGrid;
 		}
-        public TimerSetCreationPage(string setId):this()
+        public TimerSetCreationPage(string workouId):this()
         {
-            Vm.SetId = setId;
+            Vm.WorkoutId = workouId;
+            //Vm.SetId = setId;
         }
 
         private void TimerSetListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-            Navigation.PushAsync(new TimerCreationPage(Vm.SetId));
+        {            
+            Navigation.PushAsync(new TimerCreationPage(Vm.WorkoutId, (e.SelectedItem as TimerSet).SetId));
            // throw new NotImplementedException();
         }
 
@@ -139,7 +140,7 @@ namespace TimerApp.View
 
         protected override void OnDisappearing()
         {
-            //Vm.SaveTimerSets(WorkoutNameEntry.Text);
+            Vm.SaveTimerSets();
             base.OnDisappearing();
         }
     }

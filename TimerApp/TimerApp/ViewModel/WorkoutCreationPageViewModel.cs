@@ -35,5 +35,39 @@ namespace TimerApp.ViewModel
                 WorkoutsCollection.Add(item);
             }
         }
+
+        internal void SaveWorkouts()
+        {
+            var currentWorkouts = new List<Workout>();
+            foreach (var item in WorkoutsCollection)
+            {
+                currentWorkouts.Add(item);
+            }
+            AppCore.Workouts = currentWorkouts;
+            var dbMgr = new DatabaseManager();
+            dbMgr.SaveWorkouts(AppCore.Workouts);
+        }
+
+        internal void AddWorkout()
+        {
+            WorkoutsCollection.Add(new Workout());
+            //{
+            //    Id = Guid.NewGuid().ToString(),
+            //    Playlist = string.Empty,
+            //    Timers = new List<TimerSet>() {
+            //        new TimerSet(){
+            //            SetId = Guid.NewGuid().ToString(),
+            //            Name = "neues Set",
+            //            Repetitions = 1,
+            //            Timers = new List<AtomicTimer>()
+            //            {
+            //                new AtomicTimer(){Name = "Timer",Repetitions = 1, Duration = new TimeSpan(0,0,1)}
+            //            }
+            //        }
+
+            //                },
+            //    Name = "Workout"
+            //});
+        }
     }
 }

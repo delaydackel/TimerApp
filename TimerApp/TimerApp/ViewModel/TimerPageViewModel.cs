@@ -19,57 +19,62 @@ namespace TimerApp.ViewModel
         private Workout currentWorkout;
         public DisplayTimer CurrentTimer { get; set; }
         private TimerManager manager = new TimerManager();
-        private string name;
+        private string currentTimerName;
         private string duration;
-        private uint repetitions;
-        
-        //DownloadManager multiDownloadManager;
+        private int repetitions;
+        private int exerciseIndex = 0;
+        private int currentExerciseRepetitions = 0;
+        private int currentSetRepetitions = 0;
+        private List<AtomicTimer> allTimers = new List<AtomicTimer>();
+        private List<TimerSet> allSets = new List<TimerSet>();
 
-        public string Name
+
+        public string CurrentTimerName
         {
-            get { return name; }
-            set { name = value; }
+            get { return CurrentTimer.Name; }
+            set { CurrentTimer.Name = value; OnPropertyChanged(); }
         }
         public string Duration
         {
-            get { return duration; }
-            set { duration = value; }
+            get { return CurrentTimer.Duration.ToString(); }
+            set { duration = value; OnPropertyChanged(); }
         }
-        public uint Repetitions
+        public int Repetitions
         {
-            get { return repetitions; }
-            set { repetitions = value; }
+            get { return CurrentTimer.Repetitions; }
+            set { repetitions = value; OnPropertyChanged(); }
         }
 
         public TimerPageViewModel()
         {
-            CurrentTimer = new DisplayTimer();
-            CurrentTimer.Duration = new TimeSpan(1, 2, 3);
-            CurrentTimer.Name = "Uebung01";
-            CurrentTimer.Repetitions = 5;
+            //CurrentTimer = new DisplayTimer();
+            //CurrentTimer.Duration = new TimeSpan(1, 2, 3);
+            //CurrentTimer.Name = "Uebung01";
+            //CurrentTimer.Repetitions = 5;
 
-            Duration = CurrentTimer.Duration.ToString();
+            //Duration = CurrentTimer.Duration.ToString();
+            currentWorkout = AppCore.Workouts.First();
+            var ct = currentWorkout.Timers.First().Timers.First();
+            CurrentTimer = new DisplayTimer(ct);
+            //Duration = CurrentTimer.Duration.ToString();
 
-            currentWorkout = new Workout()
+            //dummywerte weil zuerst ein finished event fliegt
+            allSets.Add(new TimerSet());
+            allTimers.Add(new AtomicTimer());
+            foreach (var set in currentWorkout.Timers)
             {
-                Playlist = string.Empty,
-                Timers = new List<TimerSet>() { new TimerSet() { Name = "test",
-                    Timers = new List<AtomicTimer> {
-                     new AtomicTimer()
-                     {
-                        Name = "asd",
-                        Repetitions = 1,
-                        Duration = new TimeSpan(1,2,2000)
-                        },
-                        new AtomicTimer()
-                        {
-                                Name = "asd",
-                                Repetitions = 15,
-                                Duration = new TimeSpan(2000)
-                        }
-            } } }
-
-            };
+                allSets.Add(set);
+                foreach (var timer in set.Timers)
+                {
+                    allTimers.Add(timer);                 
+                }
+            }
+            manager.ExerciseTimerElapsedEvent += manager_ExerciseTimerElapsedEvent;
+            manager.ExerciseTimerFinishedEvent += Manager_ExerciseTimerFinishedEvent;
+            manager.SetTimerElapsedEvent += Manager_SetTimerElapsedEvent;
+            manager.SetTimerFinishedEvent += Manager_SetTimerFinishedEvent;
+            manager.WorkoutTimerElapsedEvent += manager_WorkoutTimerElapsedEvent;
+            manager.WorkoutTimerFinishedEvent += Manager_WorkoutTimerFinishedEvent;
         }
         public TimerPageViewModel(Workout workout)
         {
@@ -81,12 +86,7 @@ namespace TimerApp.ViewModel
         {
             //var manager = new TimerManager();
 
-            manager.ExerciseTimerElapsedEvent += manager_ExerciseTimerElapsedEvent;
-            manager.ExerciseTimerFinishedEvent += Manager_ExerciseTimerFinishedEvent;
-            manager.SetTimerElapsedEvent += Manager_SetTimerElapsedEvent;
-            manager.SetTimerFinishedEvent += Manager_SetTimerFinishedEvent;
-            manager.WorkoutTimerElapsedEvent += manager_WorkoutTimerElapsedEvent;
-            manager.WorkoutTimerFinishedEvent += Manager_WorkoutTimerFinishedEvent;
+
         }
 
 
@@ -115,41 +115,31 @@ namespace TimerApp.ViewModel
 
         private void Manager_WorkoutTimerFinishedEvent(object sender, WorkoutFinishedEventArgs e)
         {
-            throw new NotImplementedException();
+           // throw new NotImplementedException();
         }
 
         private void Manager_SetTimerFinishedEvent(object sender, SetFinishedEventArgs e)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         private void Manager_SetTimerElapsedEvent(object sender, ElapsedEventArgs e)
         {
-            throw new NotImplementedException();
+            currentSetRepetitions++;
         }
 
         private void Manager_ExerciseTimerFinishedEvent(object sender, ExerciseFinishedEventArgs e)
         {
-            var nextDisplayTimer = new DisplayTimer();
-            var currentExerciseRepetitions = 0;
-            var currentSetRepetitions = 0;
-            List<AtomicTimer> allTimers = new List<AtomicTimer>();
-            List<TimerSet> allSets = new List<TimerSet>();
-            foreach (var set in currentWorkout.Timers)
-            {
-                allSets.Add(set);
-                foreach (var timer in set.Timers)
-                {
-                    allTimers.Add(timer);
-                    //currentExerciseRepetitions = timer.Repetitions;
-                }
-            }
+            //var nextDisplayTimer = new DisplayTimer(allTimers[exerciseIndex]);
+            
+            
+         
             while (allTimers.Count() != 0)
             {
-                CurrentTimer = new DisplayTimer();
-                var blub = allTimers[0];
-                CurrentTimer.Duration = blub.Duration;
-                CurrentTimer.Repetitions = (uint)blub.Repetitions;
+                CurrentTimer = new DisplayTimer(allTimers[0]);
+                //var blub = allTimers[0];
+                //CurrentTimer.Duration = blub.Duration;
+                //CurrentTimer.Repetitions = blub.Repetitions;
                 allTimers.RemoveAt(0);
             }
 
@@ -164,8 +154,10 @@ namespace TimerApp.ViewModel
 
         private void manager_ExerciseTimerElapsedEvent(object sender, ElapsedEventArgs e)
         {
-            CurrentTimer.Duration.Subtract(new TimeSpan(0,0,1));
-            Duration = CurrentTimer.Duration.ToString();
+            CurrentTimer.Duration = CurrentTimer.Duration.Subtract(new TimeSpan(0,0,1));
+            //Duration = CurrentTimer.Duration.ToString();
+            currentExerciseRepetitions++;
+            exerciseIndex++;
             //throw new NotImplementedException();
         }
 

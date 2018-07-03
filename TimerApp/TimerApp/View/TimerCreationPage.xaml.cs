@@ -46,9 +46,10 @@ namespace TimerApp.View
             TimerListView.SelectionChanged += TimerListView_SelectionChanged;
             Content = layoutGrid;
         }
-        public TimerCreationPage(string setId):this()
+        public TimerCreationPage(string workoutId, string setId):this()
         {
             Vm.SetId = setId;
+            Vm.WorkoutId = workoutId;
             Vm.LoadTimers();
         }
 

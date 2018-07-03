@@ -29,12 +29,15 @@ namespace TimerApp.Model
         }
         public Workout()
         {
-            id = string.Empty;
+            id = Guid.NewGuid().ToString();
+            name = "Workout";
+            playlist = string.Empty;
+            timers = new List<TimerSet>() { new TimerSet() };
         }
         public Workout(string uid)
         {
             id = uid;
-        }
+        }       
         public string Name { get { return name; } set { name = value; OnPropertyChanged(); } }
         public event PropertyChangedEventHandler PropertyChanged;
 

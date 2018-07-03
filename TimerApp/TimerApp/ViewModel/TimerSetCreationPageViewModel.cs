@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows.Input;
+using TimerApp.Control;
 using TimerApp.Model;
 using Xamarin.Forms;
 
@@ -15,15 +16,16 @@ namespace TimerApp.ViewModel
     {
         private ObservableCollection<TimerSet> timerSets;
         public ObservableCollection<TimerSet> TimerSets { get { return timerSets; } set { timerSets = value;OnPropertyChanged(); } }
-        public string SetId { get; internal set; }
+       
+        public string WorkoutId { get; internal set; }
         public TimerSetCreationPageViewModel()
         {
             timerSets = new ObservableCollection<TimerSet>();
-            LoadTimerSets(string.Empty);
+            LoadTimerSets(WorkoutId);
         }
         public TimerSetCreationPageViewModel(string workoutId):this()
         {
-
+            WorkoutId = workoutId;            
         }
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -40,22 +42,39 @@ namespace TimerApp.ViewModel
 
             //TODO timerSets = dbMgr.readEntry(workoutId);
             // hier das aktuelle set aus dem appcore.currentworkout ziehen
+            timerSets.Clear();
+            foreach (var item in AppCore.CurrentWorkout.Timers)
+            {
+                timerSets.Add(item);
+            } 
             if (timerSets.Count() == 0 || string.Equals(workoutId, string.Empty))
             {
-                timerSets.Add(new TimerSet() { Name = "Item", Repetitions = 1, Timers = new List<AtomicTimer>() });
+                timerSets.Add(new TimerSet());
             }
 
         }
-        public void SaveTimerSets(string name, string workoutId)
+        public void SaveTimerSets()
         {
-
+            var currentTimers = TimerSets.ToList<TimerSet>();
+            AppCore.CurrentWorkout.Timers = currentTimers;
+            var blub = AppCore.Workouts.Where(wo => wo.Id == this.WorkoutId).First();
+            blub =  AppCore.CurrentWorkout;
+            var dbMgr = new DatabaseManager();
+            dbMgr.SaveWorkouts(AppCore.Workouts);
         }
 
         internal void AddTimerSet()
         {
-            TimerSets.Add(new TimerSet() { Name = "Neues Set",
-                Repetitions = 1,
-                Timers = new List<AtomicTimer>() { new AtomicTimer() } });
+            TimerSets.Add(new TimerSet());
+            //{
+            //    SetId = Guid.NewGuid().ToString(),
+            //    Name = "neues Set",
+            //    Repetitions = 1,
+            //    Timers = new List<AtomicTimer>()
+            //            {
+            //                new AtomicTimer(){Name = "Timer",Repetitions = 1, Duration = new TimeSpan(0,0,1)}
+            //            }
+            //});
             //throw new NotImplementedException();
         }
 

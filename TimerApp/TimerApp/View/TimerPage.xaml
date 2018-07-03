@@ -85,7 +85,7 @@
               Grid.Column="1"
               Grid.Row="5"
               Grid.ColumnSpan="2"
-              Text="Name"
+              Text="{Binding CurrentTimerName}"
               HorizontalOptions="CenterAndExpand"
               VerticalOptions="CenterAndExpand"
               FontSize="Large"
