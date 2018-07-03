@@ -78,8 +78,9 @@ namespace TimerApp.View
                 durationLabel.SetBinding(Label.TextProperty, "DurationText");
                 repetitionsLabel.SetBinding(Label.TextProperty, "RepetitionsText");
 
-                durationPicker.SetBinding(TimePicker.TimeProperty, "Duration");
+                durationPicker.SetBinding(TimePicker.TimeProperty, "Duration",BindingMode.OneWayToSource);
                 durationPicker.PropertyChanged += DurationPicker_PropertyChanged;
+              
                 grid.Children.Add(nameLabel);
                 grid.Children.Add(durationLabel, 1, 0);
                 grid.Children.Add(repetitionsLabel, 2, 0);
@@ -123,14 +124,12 @@ namespace TimerApp.View
 
         private void DurationPicker_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if(e.PropertyName == "Time")
+            if (e.PropertyName == "Time")
             {
-                Vm.TimerList[Vm.TimerList.IndexOf(TimerListView.CurrentItem as AtomicTimer)].Duration = (sender as TimePicker).Time;
-                //TimerListView.ItemsSource = Vm.TimerList;
-                
-                //TimerListView.ForceUpdateItemSize(Vm.TimerList.IndexOf(TimerListView.CurrentItem as AtomicTimer));
-                //TimerListView.SelectedItemTemplate = CreateTimerSelectedItemTemplate();
-                //TimerListView.ItemTemplate = CreateTimerItemTemplate();
+                TimeSpan duration;
+                duration = new TimeSpan((long)((sender as TimePicker).Time.Ticks) / 60);
+                Vm.TimerList[Vm.TimerList.IndexOf(TimerListView.CurrentItem as AtomicTimer)].Duration = duration;
+
 
             }
 

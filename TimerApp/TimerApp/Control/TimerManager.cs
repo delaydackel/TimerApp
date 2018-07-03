@@ -114,27 +114,29 @@ namespace TimerApp.Control
                         setTimeSpans.Add(currentSetSpan);
                     }                    
                 }
-                var exerciseTask = new Task(async () => {
+
+                var exerciseTask = new Task(() => {
                     while(_timerState == TimerState.RUNNING)
                     {
                         while (exerciseTimeSpans.Count > 0)
                         {
                             exerciseTimer.Start();
-                            await Task.Delay(exerciseTimeSpans[0]);
+                            Task.Delay(exerciseTimeSpans[0]).Wait();
                             exerciseTimeSpans.RemoveAt(0);
                             OnExerciseTimerFinishedEvent(this, new ExerciseFinishedEventArgs(true));
                         }
                     }                    
                     exerciseTimer.Stop();
                 });
-                var setTask = new Task(async () =>
+              
+                var setTask = new Task(() =>
                 {
                     while (_timerState == TimerState.RUNNING)
                     {
                         while (setTimeSpans.Count > 0)
                         {
                             setTimer.Start();
-                            await Task.Delay(setTimeSpans[0]);
+                            Task.Delay(setTimeSpans[0]).Wait();
                             setTimeSpans.RemoveAt(0);
                             OnSetTimerFinishedEvent(this, new SetFinishedEventArgs(true));
                         }
@@ -145,11 +147,11 @@ namespace TimerApp.Control
                 //TimeSpan setSpan = GetSetSpan();
                 //int workoutSeconds = workoutSpan.TotalSeconds;
 
-                var workoutTask = new Task(async () =>
+                var workoutTask = new Task(() =>
                 {
                     while (_timerState == TimerState.RUNNING)
                     {
-                        await Task.Delay(workoutSpan);
+                        Task.Delay(workoutSpan).Wait();
                         OnWorkoutTimerFinishedEvent(this, new WorkoutFinishedEventArgs(true));
                     }                    
                     workoutTimer.Stop();
@@ -165,6 +167,15 @@ namespace TimerApp.Control
 
                 throw ex;
             }
+        }
+
+        internal void StopAllTimers()
+        {
+            PauseTimer();
+            this.workoutTimer.Stop();
+            this.setTimer.Stop();
+            this.exerciseTimer.Stop();
+          //  throw new NotImplementedException();
         }
 
         private TimeSpan GetSetSpan(TimerSet set)

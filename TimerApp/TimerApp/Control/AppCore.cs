@@ -35,6 +35,7 @@ namespace TimerApp.Control
                 if (wo != null)
                 {
                     Workouts = wo;
+                    CurrentWorkout = wo[0];
                 }
                 else
                 {

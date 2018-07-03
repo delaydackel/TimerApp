@@ -42,14 +42,14 @@ namespace TimerApp.ViewModel
 
             //TODO timerSets = dbMgr.readEntry(workoutId);
             // hier das aktuelle set aus dem appcore.currentworkout ziehen
-            timerSets.Clear();
+            TimerSets.Clear();
             foreach (var item in AppCore.CurrentWorkout.Timers)
             {
-                timerSets.Add(item);
+                TimerSets.Add(item);
             } 
-            if (timerSets.Count() == 0 || string.Equals(workoutId, string.Empty))
+            if (TimerSets.Count() == 0 || string.Equals(workoutId, string.Empty))
             {
-                timerSets.Add(new TimerSet());
+                TimerSets.Add(new TimerSet());
             }
 
         }
@@ -66,6 +66,10 @@ namespace TimerApp.ViewModel
         internal void AddTimerSet()
         {
             TimerSets.Add(new TimerSet());
+            var currentTimers = TimerSets.ToList<TimerSet>();
+            AppCore.CurrentWorkout.Timers = currentTimers;
+            var blub = AppCore.Workouts.Where(wo => wo.Id == this.WorkoutId).First();
+            blub = AppCore.CurrentWorkout;
             //{
             //    SetId = Guid.NewGuid().ToString(),
             //    Name = "neues Set",

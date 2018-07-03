@@ -59,8 +59,8 @@ namespace TimerApp.ViewModel
             //Duration = CurrentTimer.Duration.ToString();
 
             //dummywerte weil zuerst ein finished event fliegt
-            allSets.Add(new TimerSet());
-            allTimers.Add(new AtomicTimer());
+            //allSets.Add(new TimerSet());
+            //allTimers.Add(new AtomicTimer());
             foreach (var set in currentWorkout.Timers)
             {
                 allSets.Add(set);
@@ -115,7 +115,8 @@ namespace TimerApp.ViewModel
 
         private void Manager_WorkoutTimerFinishedEvent(object sender, WorkoutFinishedEventArgs e)
         {
-           // throw new NotImplementedException();
+            manager.StopAllTimers();
+            // throw new NotImplementedException();
         }
 
         private void Manager_SetTimerFinishedEvent(object sender, SetFinishedEventArgs e)
@@ -134,30 +135,34 @@ namespace TimerApp.ViewModel
             
             
          
-            while (allTimers.Count() != 0)
+            while (exerciseIndex <= allTimers.Count())
             {
-                CurrentTimer = new DisplayTimer(allTimers[0]);
+              
+                CurrentTimer = new DisplayTimer(allTimers[exerciseIndex]);
+                Duration = CurrentTimer.Duration.ToString();
+                CurrentTimerName = CurrentTimer.Name;
                 //var blub = allTimers[0];
                 //CurrentTimer.Duration = blub.Duration;
                 //CurrentTimer.Repetitions = blub.Repetitions;
-                allTimers.RemoveAt(0);
+                //allTimers.RemoveAt(0);
+                currentExerciseRepetitions++;
+                exerciseIndex++;
             }
 
         }
 
         private void manager_WorkoutTimerElapsedEvent(object sender, ElapsedEventArgs e)
         {
-            
-            
+
+           
             //throw new NotImplementedException();
         }
 
         private void manager_ExerciseTimerElapsedEvent(object sender, ElapsedEventArgs e)
         {
             CurrentTimer.Duration = CurrentTimer.Duration.Subtract(new TimeSpan(0,0,1));
-            //Duration = CurrentTimer.Duration.ToString();
-            currentExerciseRepetitions++;
-            exerciseIndex++;
+            Duration = CurrentTimer.Duration.ToString();
+           
             //throw new NotImplementedException();
         }
 
