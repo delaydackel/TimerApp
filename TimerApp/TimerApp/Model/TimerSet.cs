@@ -8,7 +8,7 @@ using Xamarin.Forms;
 
 namespace TimerApp.Model
 {
-    public class TimerSet: BindableObject, INotifyPropertyChanged
+    public class TimerSet : BindableObject, INotifyPropertyChanged
     {
         //public TimerSet() : base()
         //{
@@ -22,9 +22,9 @@ namespace TimerApp.Model
         private int repetitions;
         public string Name { get { return name; } set { name = value; OnPropertyChanged(); } }
         public List<AtomicTimer> Timers { get { return timers; } set { timers = value; OnPropertyChanged(); } }
-        public int Repetitions { get { return repetitions; }set { repetitions = value; OnPropertyChanged(); } }
+        public int Repetitions { get { return repetitions; } set { repetitions = value; OnPropertyChanged(); } }
         public string SetId { get { return id; } set { id = value; OnPropertyChanged(); } }
-        public TimerSet() 
+        public TimerSet()
         {
             name = "Übung";
             repetitions = 1;
@@ -51,6 +51,7 @@ namespace TimerApp.Model
                 }
                 return increaseRepetitionsCommand;
             }
+            set { increaseRepetitionsCommand = value; }
         }
         private ICommand decreaseRepetitionsCommand;
         public ICommand DecreaseRepetitionsCommand
@@ -59,8 +60,9 @@ namespace TimerApp.Model
             {
                 if (decreaseRepetitionsCommand == null)
                 {
-                    decreaseRepetitionsCommand = new Command(() => {
-                        if (Repetitions>0)
+                    decreaseRepetitionsCommand = new Command(() =>
+                    {
+                        if (Repetitions > 0)
                         {
                             Repetitions--;
                         }
@@ -68,6 +70,7 @@ namespace TimerApp.Model
                 }
                 return decreaseRepetitionsCommand;
             }
+            set { decreaseRepetitionsCommand = value; }
         }
         //private List<AtomicTimer> elements;
         //private uint repetitions;
@@ -82,4 +85,6 @@ namespace TimerApp.Model
         //    set { repetitions = value; }
         //}
     }
+
+   
 }

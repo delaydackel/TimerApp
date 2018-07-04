@@ -39,6 +39,7 @@ namespace TimerApp.Model
                 return null;
             }
             string base64decoded = Base64Decode(sections[0][1]);
+            
             List<Workout> results = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Workout>>(base64decoded);
 
             //foreach (var item in sections)

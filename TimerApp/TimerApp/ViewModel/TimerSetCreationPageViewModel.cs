@@ -21,7 +21,7 @@ namespace TimerApp.ViewModel
         public TimerSetCreationPageViewModel()
         {
             timerSets = new ObservableCollection<TimerSet>();
-            LoadTimerSets(WorkoutId);
+            LoadTimerSets();
         }
         public TimerSetCreationPageViewModel(string workoutId):this()
         {
@@ -36,7 +36,7 @@ namespace TimerApp.ViewModel
         }
 
 
-        public void LoadTimerSets(string workoutId)
+        public void LoadTimerSets()
         {
             //var dbMgr = new DatabaseManager();
 
@@ -47,7 +47,7 @@ namespace TimerApp.ViewModel
             {
                 TimerSets.Add(item);
             } 
-            if (TimerSets.Count() == 0 || string.Equals(workoutId, string.Empty))
+            if (TimerSets.Count() == 0 )
             {
                 TimerSets.Add(new TimerSet());
             }

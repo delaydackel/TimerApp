@@ -44,7 +44,7 @@ namespace TimerApp.Control
                         new Workout()
                         {
                             Id = Guid.NewGuid().ToString(),
-                            Playlist = string.Empty,
+                            Playlist = Guid.NewGuid().ToString(),
                             Timers = new List<TimerSet>() {
                                 new TimerSet(){
                                     SetId = Guid.NewGuid().ToString(),

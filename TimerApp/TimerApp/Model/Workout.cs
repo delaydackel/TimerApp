@@ -31,8 +31,8 @@ namespace TimerApp.Model
         {
             id = Guid.NewGuid().ToString();
             name = "Workout";
-            playlist = string.Empty;
-            timers = new List<TimerSet>() { new TimerSet() };
+            playlist = Guid.NewGuid().ToString();
+            timers = new List<TimerSet>() ;
         }
         public Workout(string uid)
         {

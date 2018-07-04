@@ -52,7 +52,7 @@ namespace TimerApp.ViewModel
         public void LoadTimers()
         {            
             var blub = AppCore.CurrentWorkout.Timers.Where(timer => string.Equals(timer.SetId, this.SetId)).First().Timers;
-
+            TimerList.Clear();
             foreach (var item in blub)
             {
                 TimerList.Add(item);
