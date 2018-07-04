@@ -19,6 +19,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Control\AppCore.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Control\ExerciseFinishedEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Control\FinishedEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Control\Helper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Control\IAppService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Control\IDataStore.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Control\ITimerManager.cs" />

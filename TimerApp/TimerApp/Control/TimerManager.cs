@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using TimerApp.Model;
@@ -9,6 +11,8 @@ namespace TimerApp.Control
 {
     class TimerManager : ITimerManager
     {
+          ConcurrentBag<CancellationTokenSource> activeSources;
+        ConcurrentBag<Task> tasks;
         //ConcurrentBag<CancellationTokenSource> activeSources;
         public event ExerciseTimerElapsedHandler ExerciseTimerElapsedEvent;
         public event SetTimerElapsedHandler SetTimerElapsedEvent;
@@ -20,9 +24,9 @@ namespace TimerApp.Control
 
 
         private TimerState _timerState = TimerState.STOPPED;
-        private Timer exerciseTimer = new Timer();
-        private Timer setTimer = new Timer();
-        private Timer workoutTimer = new Timer();
+        private System.Timers.Timer exerciseTimer = new System.Timers.Timer();
+        private System.Timers.Timer setTimer = new System.Timers.Timer();
+        private System.Timers.Timer workoutTimer = new System.Timers.Timer();
         private TimeSpan workoutSpan = new TimeSpan();
         private TimeSpan setSpan = new TimeSpan();
         private TimeSpan exerciseSpan = new TimeSpan();
@@ -37,8 +41,9 @@ namespace TimerApp.Control
             exerciseTimer.Elapsed += OnExerciseTimerElapsedEvent;
             setTimer.Elapsed += OnSetTimerElapsedEvent;
             workoutTimer.Elapsed += OnWorkoutTimerElapsedEvent;
-            
-            
+
+            this.activeSources = new ConcurrentBag<CancellationTokenSource>();
+            tasks = new ConcurrentBag<Task>();
 
         }
 
@@ -86,10 +91,6 @@ namespace TimerApp.Control
             WorkoutTimerFinishedEvent(this, e);
         }
         public delegate void WorkoutTimerFinishedHandler(object sender, WorkoutFinishedEventArgs e);
-
-
-
-
         public void StartWorkoutAsync(Workout workout)
         {
             try
@@ -97,6 +98,12 @@ namespace TimerApp.Control
                 this.currentWorkout = workout;
                 TimeSpan workoutSpan = GetWorkoutSpan(workout);
                 List<TimeSpan> setSpans = new List<TimeSpan>();
+
+                CancellationTokenSource src = new CancellationTokenSource();
+               
+
+                activeSources.Add(src);
+
                 foreach (var set in workout.Timers)
                 {
                     for (int i = 0; i < set.Repetitions; i++)
@@ -114,27 +121,21 @@ namespace TimerApp.Control
                         setTimeSpans.Add(currentSetSpan);
                     }                    
                 }
-
-                var exerciseTask = new Task(() => {
-                    while(_timerState == TimerState.RUNNING)
-                    {
-                        while (exerciseTimeSpans.Count > 0)
-                        {
-                            exerciseTimer.Start();
-                            Task.Delay(exerciseTimeSpans[0]).Wait();
-                            exerciseTimeSpans.RemoveAt(0);
-                            OnExerciseTimerFinishedEvent(this, new ExerciseFinishedEventArgs(true));
-                        }
-                    }                    
-                    exerciseTimer.Stop();
-                });
-              
-                var setTask = new Task(() =>
+                CancellationToken ct = src.Token;
+                var exerciseTask = Task.Run(() => {
+                    RunExercise(ct);
+                },ct);
+                
+                var setTask = Task.Run(() =>
                 {
                     while (_timerState == TimerState.RUNNING)
                     {
                         while (setTimeSpans.Count > 0)
                         {
+                            if (ct.IsCancellationRequested)
+                            {
+                                ct.ThrowIfCancellationRequested();
+                            }
                             setTimer.Start();
                             Task.Delay(setTimeSpans[0]).Wait();
                             setTimeSpans.RemoveAt(0);
@@ -142,31 +143,61 @@ namespace TimerApp.Control
                         }
                     }                    
                     setTimer.Stop();
-                });
+                },ct);
 
                 //TimeSpan setSpan = GetSetSpan();
                 //int workoutSeconds = workoutSpan.TotalSeconds;
 
-                var workoutTask = new Task(() =>
+                var workoutTask = Task.Run(() =>
                 {
                     while (_timerState == TimerState.RUNNING)
                     {
+                        if (ct.IsCancellationRequested)
+                        {
+                            ct.ThrowIfCancellationRequested();
+                        }
+                        workoutTimer.Start();
                         Task.Delay(workoutSpan).Wait();
                         OnWorkoutTimerFinishedEvent(this, new WorkoutFinishedEventArgs(true));
                     }                    
                     workoutTimer.Stop();
-                });
+                },ct);
                 _timerState = TimerState.RUNNING;
-                exerciseTask.Start();
-                setTask.Start();
-                workoutTimer.Start();
-                workoutTask.Start();
+                //workoutTask.ContinueWith(t => { int x = 0; });
+                //exerciseTask.ContinueWith(t => { int x = 0; });
+                //setTask.ContinueWith(t => { int x = 0; });
+                //Task.WaitAll(new[] { exerciseTask, setTask, workoutTask});
+                //Task.Run(() => exerciseTask);
+                //Task.Run(() => workoutTask);
+                //Task.Run(() => setTask);
+                //exerciseTask.Start();
+                //setTask.Start();               
+                //workoutTask.Start();
             }
             catch (Exception ex)
             {
 
                 throw ex;
             }
+        }
+
+        private void RunExercise( CancellationToken ct)
+        {
+            while (_timerState == TimerState.RUNNING)
+            {
+                while (exerciseTimeSpans.Count > 0)
+                {
+                    if (ct.IsCancellationRequested)
+                    {
+                        ct.ThrowIfCancellationRequested();
+                    }
+                    exerciseTimer.Start();
+                    Task.Delay(exerciseTimeSpans[0]).Wait();
+                    exerciseTimeSpans.RemoveAt(0);
+                    OnExerciseTimerFinishedEvent(this, new ExerciseFinishedEventArgs(true));
+                }
+            }
+            exerciseTimer.Stop();
         }
 
         internal void StopAllTimers()
@@ -206,12 +237,43 @@ namespace TimerApp.Control
             else
             {
                 _timerState = TimerState.STOPPED;
+                try
+                {
+                    foreach (CancellationTokenSource src in activeSources)
+                    {
+                        src.Cancel();
+                    }
+                    Task.WaitAll(tasks.ToArray());
+                }
+                catch (AggregateException ae)
+                {
+                    if (!(ae.InnerException.GetType() == typeof(TaskCanceledException)))
+                    {
+                        throw ae;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    tasks = new ConcurrentBag<Task>();
+                    activeSources = new ConcurrentBag<CancellationTokenSource>();
+                }
+                exerciseTimer.Stop();
+                setTimer.Stop();
+                workoutTimer.Stop();
             }            
         }
 
         public void SkipCurrentExercise()
         {
             throw new NotImplementedException();
+        }
+        public async Task StartExerciseTimer(CancellationToken ct)
+        {
+
         }
     }
 }

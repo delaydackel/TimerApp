@@ -22,7 +22,8 @@ namespace TimerApp.ViewModel
         private string currentTimerName;
         private string duration;
         private int repetitions;
-        private int exerciseIndex = 0;
+        private int exerciseIndex;
+        private int setIndex;
         private int currentExerciseRepetitions = 0;
         private int currentSetRepetitions = 0;
         private List<AtomicTimer> allTimers = new List<AtomicTimer>();
@@ -47,12 +48,8 @@ namespace TimerApp.ViewModel
 
         public TimerPageViewModel()
         {
-            //CurrentTimer = new DisplayTimer();
-            //CurrentTimer.Duration = new TimeSpan(1, 2, 3);
-            //CurrentTimer.Name = "Uebung01";
-            //CurrentTimer.Repetitions = 5;
-
-            //Duration = CurrentTimer.Duration.ToString();
+            exerciseIndex = 0;
+            setIndex = 0;
             currentWorkout = AppCore.Workouts.First();
             var ct = currentWorkout.Timers.First().Timers.First();
             CurrentTimer = new DisplayTimer(ct);
@@ -132,10 +129,10 @@ namespace TimerApp.ViewModel
         private void Manager_ExerciseTimerFinishedEvent(object sender, ExerciseFinishedEventArgs e)
         {
             //var nextDisplayTimer = new DisplayTimer(allTimers[exerciseIndex]);
-            
-            
+
+            Console.WriteLine(sender.ToString() + "exercise finished " + allTimers[exerciseIndex].Name);
          
-            while (exerciseIndex <= allTimers.Count())
+            if (exerciseIndex <= allTimers.Count())
             {
               
                 CurrentTimer = new DisplayTimer(allTimers[exerciseIndex]);
