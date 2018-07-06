@@ -18,7 +18,7 @@ namespace TimerApp.ViewModel
     {
         private Workout currentWorkout;
         public DisplayTimer CurrentTimer { get; set; }
-        private TimerManager manager = new TimerManager();
+        public TimerManager manager = new TimerManager();
         private string currentTimerName;
         private string duration;
         private int repetitions;
@@ -60,11 +60,18 @@ namespace TimerApp.ViewModel
             //allTimers.Add(new AtomicTimer());
             foreach (var set in currentWorkout.Timers)
             {
-                allSets.Add(set);
-                foreach (var timer in set.Timers)
+                for (int i = 0; i < set.Repetitions; i++)
                 {
-                    allTimers.Add(timer);                 
+                    allSets.Add(set);
+                    foreach (var timer in set.Timers)
+                    {
+                        for (int j = 0; j < timer.Repetitions; j++)
+                        {
+                            allTimers.Add(timer);
+                        }
+                    }
                 }
+            
             }
             manager.ExerciseTimerElapsedEvent += manager_ExerciseTimerElapsedEvent;
             manager.ExerciseTimerFinishedEvent += Manager_ExerciseTimerFinishedEvent;
@@ -104,8 +111,8 @@ namespace TimerApp.ViewModel
             if(!isRunning)
             {
                 isRunning = true;
-
-                manager.StartWorkoutAsync(currentWorkout);
+                exerciseIndex = 0;
+                manager.StartWorkoutAsync();
             }
 
         }
@@ -129,36 +136,49 @@ namespace TimerApp.ViewModel
         private void Manager_ExerciseTimerFinishedEvent(object sender, ExerciseFinishedEventArgs e)
         {
             //var nextDisplayTimer = new DisplayTimer(allTimers[exerciseIndex]);
-
-            Console.WriteLine(sender.ToString() + "exercise finished " + allTimers[exerciseIndex].Name);
-         
+#if DEBUG
+            Console.WriteLine( "exercise finished " + allTimers[exerciseIndex].Name);
+#endif
             if (exerciseIndex <= allTimers.Count())
             {
-              
-                CurrentTimer = new DisplayTimer(allTimers[exerciseIndex]);
-                Duration = CurrentTimer.Duration.ToString();
-                CurrentTimerName = CurrentTimer.Name;
+#if DEBUG
+                Console.WriteLine("number "+exerciseIndex.ToString());
+#endif
+       
                 //var blub = allTimers[0];
                 //CurrentTimer.Duration = blub.Duration;
                 //CurrentTimer.Repetitions = blub.Repetitions;
-                //allTimers.RemoveAt(0);
-                currentExerciseRepetitions++;
-                exerciseIndex++;
+                //allTimers.RemoveAt(0);            
+               
             }
 
         }
 
         private void manager_WorkoutTimerElapsedEvent(object sender, ElapsedEventArgs e)
         {
+#if DEBUG
+            Console.WriteLine("workout ticked ");
+#endif
 
-           
+            CurrentTimer.Duration = CurrentTimer.Duration.Subtract(new TimeSpan(0, 0, 1));
+            if (CurrentTimer.Duration != new TimeSpan(0, 0, -1))
+            {
+                Duration = CurrentTimer.Duration.ToString();
+            }
+                
+            if (CurrentTimer.Duration == new TimeSpan(0,0,-1))
+            {
+                exerciseIndex++;
+                CurrentTimer = new DisplayTimer(allTimers[exerciseIndex]);
+                Duration = CurrentTimer.Duration.ToString();
+                CurrentTimerName = CurrentTimer.Name;
+            }
             //throw new NotImplementedException();
         }
 
         private void manager_ExerciseTimerElapsedEvent(object sender, ElapsedEventArgs e)
         {
-            CurrentTimer.Duration = CurrentTimer.Duration.Subtract(new TimeSpan(0,0,1));
-            Duration = CurrentTimer.Duration.ToString();
+    
            
             //throw new NotImplementedException();
         }

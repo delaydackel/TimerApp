@@ -7,7 +7,7 @@ namespace TimerApp.Control
 {
     interface ITimerManager
     {
-        void StartWorkoutAsync(Workout workout);
+        void StartWorkoutAsync();
         void PauseTimer();
         void SkipCurrentExercise();
     }
