@@ -36,14 +36,16 @@ namespace TimerApp.View
 
             lv = new ListView()
             {
+                
                 HorizontalOptions = LayoutOptions.CenterAndExpand,
                 VerticalOptions = LayoutOptions.CenterAndExpand,
-                BackgroundColor = Color.Red
+                //BackgroundColor = Color.Red
             };
             workoutListViewItemTemplate = CreateWorkoutItemTemplate();
             lv.ItemTemplate = workoutListViewItemTemplate;
             lv.SetBinding(ListView.ItemsSourceProperty, "WorkoutsCollection");
             lv.ItemSelected += Lv_ItemSelected;
+            
             LayoutGrid.Children.Add(lv, 1, 0);
             LayoutGrid.Children.Add(AddItemButton, 1, 1);
             AddItemButton.Clicked += AddItemButton_Clicked;
@@ -60,8 +62,12 @@ namespace TimerApp.View
 
         private void Lv_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            AppCore.CurrentWorkout = (e.SelectedItem as Workout);
-            Navigation.PushAsync(new TimerSetCreationPage((e.SelectedItem as Workout).Id));
+            if(e.SelectedItem != null)
+            {
+
+                AppCore.CurrentWorkout = (e.SelectedItem as Workout);
+                Navigation.PushAsync(new TimerSetCreationPage(AppCore.CurrentWorkout.Id));
+            }
         }
 
         private DataTemplate CreateWorkoutItemTemplate()
@@ -78,6 +84,7 @@ namespace TimerApp.View
 
                 nameLabel.SetBinding(Label.TextProperty, "Name");
                 grid.Children.Add(nameLabel, 0, 0);
+                //var longPress = new GestureRecognizer();
 
                 return new ViewCell { View = grid };
             });
@@ -87,6 +94,7 @@ namespace TimerApp.View
 
         protected override void OnAppearing()
         {
+            lv.SelectedItem = null;
             Vm.LoadWorkouts();
             base.OnAppearing();
             BindingContext = Vm;

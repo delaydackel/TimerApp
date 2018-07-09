@@ -22,7 +22,7 @@ namespace TimerApp.View
         {
             base.OnAppearing();
             BindingContext = Vm;
-            Vm.manager = new Control.TimerManager();
+            //Vm.manager = new Control.TimerManager();
             //Content.BindingContext = Vm;
         }
 

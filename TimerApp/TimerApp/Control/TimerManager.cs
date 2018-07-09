@@ -29,12 +29,12 @@ namespace TimerApp.Control
 
 
         private TimerState _timerState = TimerState.STOPPED;
-        private static System.Timers.Timer exerciseTimer = new System.Timers.Timer();
-        private static System.Timers.Timer setTimer = new System.Timers.Timer();
-        private static System.Timers.Timer workoutTimer = new System.Timers.Timer();
-        private static System.Timers.Timer currentExerciseTimer = new System.Timers.Timer();
-        private static System.Timers.Timer currentSetTimer = new System.Timers.Timer();
-        private static System.Timers.Timer currentWorkoutTimer = new System.Timers.Timer();
+        private System.Timers.Timer exerciseTimer = new System.Timers.Timer();
+        private System.Timers.Timer setTimer = new System.Timers.Timer();
+        private System.Timers.Timer workoutTimer = new System.Timers.Timer();
+        private System.Timers.Timer currentExerciseTimer = new System.Timers.Timer();
+        private System.Timers.Timer currentSetTimer = new System.Timers.Timer();
+        private System.Timers.Timer currentWorkoutTimer = new System.Timers.Timer();
         private TimeSpan workoutSpan = new TimeSpan();
         private TimeSpan setSpan = new TimeSpan();
         private TimeSpan exerciseSpan = new TimeSpan();
@@ -277,7 +277,21 @@ namespace TimerApp.Control
 
         private TimeSpan GetSetSpan(TimerSet set)
         {
-            throw new NotImplementedException();
+            TimeSpan rvalue = new TimeSpan();
+           
+            for (int i = 0; i < set.Repetitions; i++)
+            {
+                foreach (var timer in set.Timers)
+                {
+                    for (int j = 0; j < timer.Repetitions; j++)
+                    {
+                        rvalue = rvalue.Add(timer.Duration);
+                        rvalue = rvalue.Add(new TimeSpan(0, 0, 1));//hax
+                    }
+                }
+            }
+            
+            return rvalue;
         }
 
         private TimeSpan GetWorkoutSpan(Workout workout)

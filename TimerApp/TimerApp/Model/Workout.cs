@@ -38,6 +38,30 @@ namespace TimerApp.Model
         {
             id = uid;
         }       
+        public TimeSpan Duration
+        {
+            get
+            {
+                TimeSpan rvalue = new TimeSpan();
+                foreach (var set in this.Timers)
+                {
+                    for (int i = 0; i < set.Repetitions; i++)
+                    {
+                        foreach (var timer in set.Timers)
+                        {
+                            for (int j = 0; j < timer.Repetitions; j++)
+                            {
+                                rvalue = rvalue.Add(timer.Duration);
+                                rvalue = rvalue.Add(new TimeSpan(0, 0, 1));//hax
+                            }
+
+                        }
+                    }
+
+                }
+                return rvalue;
+            }
+        }
         public string Name { get { return name; } set { name = value; OnPropertyChanged(); } }
         public event PropertyChangedEventHandler PropertyChanged;
 

@@ -95,25 +95,47 @@
                     </Label.GestureRecognizers>
                 </Label>
                 <Label
-                    x:Name="TimerSumLabel"
-                    Grid.Column="1"
+                    x:Name="SetNameLabel"
+                    Grid.Column="0"
                     Grid.Row="0"
                     Grid.ColumnSpan="2"
                     HorizontalOptions="CenterAndExpand"
                     VerticalOptions="CenterAndExpand"
                     FontSize="Large"
-                    Text="Gesamt"
+                    Text="{Binding SetName}"
                     >
                 </Label>
                 <Label
-                    x:Name="TimerRepeatLabel"
-                    Grid.Column="3"
-                    Grid.Row="0"
-                    Grid.ColumnSpan="1"
+                    x:Name="WorkoutNameLabel"
+                    Grid.Column="0"
+                    Grid.Row="1"
+                    Grid.ColumnSpan="2"
                     HorizontalOptions="CenterAndExpand"
                     VerticalOptions="CenterAndExpand"
                     FontSize="Large"
-                    Text="Repeat"
+                    Text="{Binding WorkoutName}"
+                    >
+                </Label>
+                <Label
+                    x:Name="SetDurationLabel"
+                    Grid.Column="2"
+                    Grid.Row="0"
+                    Grid.ColumnSpan="2"
+                    HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="CenterAndExpand"
+                    FontSize="Large"
+                    Text="{Binding SetDuration}"
+                    >
+                </Label>
+                <Label
+                    x:Name="WorkoutDurationLabel"
+                    Grid.Column="2"
+                    Grid.Row="1"
+                    Grid.ColumnSpan="2"
+                    HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="CenterAndExpand"
+                    FontSize="Large"
+                    Text="{Binding WorkoutDuration}"
                     >
                 </Label>
             </Grid>

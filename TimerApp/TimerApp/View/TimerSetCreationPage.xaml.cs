@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TimerApp.Control;
 using TimerApp.Model;
 using TimerApp.ViewModel;
 using Xamarin.Forms;
@@ -16,6 +17,7 @@ namespace TimerApp.View
 	{
         private TimerSetCreationPageViewModel Vm;
         public ListView lv;
+        public Entry WorkoutNameEntry;
         public Button AddItemButton;
         public Grid LayoutGrid;
         private DataTemplate timerSetListViewItemTemplate;
@@ -24,6 +26,7 @@ namespace TimerApp.View
 			InitializeComponent ();
             Vm = new TimerSetCreationPageViewModel();
             LayoutGrid = new Grid();
+            LayoutGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(0.1, GridUnitType.Star) });
             LayoutGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
             LayoutGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(0.1, GridUnitType.Star) });
 
@@ -51,8 +54,12 @@ namespace TimerApp.View
 
             //};
 
-            LayoutGrid.Children.Add(lv, 1, 0);
-            LayoutGrid.Children.Add(AddItemButton,1,1);
+            WorkoutNameEntry = new Entry();
+            WorkoutNameEntry.Text = AppCore.CurrentWorkout.Name;
+            WorkoutNameEntry.TextChanged += WorkoutNameEntry_TextChanged;
+            LayoutGrid.Children.Add(WorkoutNameEntry, 1, 0);
+            LayoutGrid.Children.Add(lv, 1, 1);
+            LayoutGrid.Children.Add(AddItemButton,1,2);
             //TimerSetListView.VerticalOptions = LayoutOptions.FillAndExpand;
             //TimerSetListView.HorizontalOptions = LayoutOptions.FillAndExpand;
             //TimerSetListView.AutoFitMode = AutoFitMode.None;
@@ -69,6 +76,18 @@ namespace TimerApp.View
             AddItemButton.Clicked += AddItemButton_Clicked;
             Content = LayoutGrid;
 		}
+
+        private void WorkoutNameEntry_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (e.NewTextValue != e.OldTextValue)
+            {
+                AppCore.CurrentWorkout.Name = e.NewTextValue;
+                Vm.SaveTimerSets();
+            }
+            
+            //throw new NotImplementedException();
+        }
+
         public TimerSetCreationPage(string workouId):this()
         {
             Vm.WorkoutId = workouId;

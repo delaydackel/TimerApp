@@ -50,6 +50,7 @@ namespace TimerApp.ViewModel
             if (TimerSets.Count() == 0 )
             {
                 TimerSets.Add(new TimerSet());
+                //SaveTimerSets();
             }
 
         }

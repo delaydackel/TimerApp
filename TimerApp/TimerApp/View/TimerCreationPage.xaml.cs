@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TimerApp.Control;
 using TimerApp.Model;
 using TimerApp.ViewModel;
 using Xamarin.Forms;
@@ -44,6 +45,7 @@ namespace TimerApp.View
             TimerListView.ItemTemplate = CreateTimerItemTemplate();
             
             TimerListView.SelectionChanged += TimerListView_SelectionChanged;
+            
             Content = layoutGrid;
         }
         public TimerCreationPage(string workoutId, string setId):this()
@@ -182,6 +184,7 @@ namespace TimerApp.View
         {
             base.OnAppearing();
             BindingContext = Vm;
+            WorkoutNameEntry.Text = AppCore.CurrentWorkout.Timers.Where(set => set.SetId == Vm.SetId).First().Name;
         }
 
         public virtual DataTemplate CreateTimerItemTemplate()
@@ -216,7 +219,11 @@ namespace TimerApp.View
 
         private void WorkoutNameEntry_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            if (e.NewTextValue != e.OldTextValue)
+            {
+                var currentSet = AppCore.CurrentWorkout.Timers.Where(set => set.SetId == Vm.SetId).First();
+                currentSet.Name = e.NewTextValue;
+            }            
         }
 
         public virtual void AddItemButton_Clicked(object sender, EventArgs e)
