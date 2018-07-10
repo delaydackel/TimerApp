@@ -25,15 +25,14 @@ namespace TimerApp.ViewModel
         private int exerciseIndex;
         private int setIndex;
         private int currentExerciseRepetitions = 0;
-        private int currentSetRepetitions = 0;
+       // private int currentSetRepetitions = 0;
         private List<AtomicTimer> allTimers = new List<AtomicTimer>();
         private List<TimerSet> allSets = new List<TimerSet>();
         private string setDuration;
         private string workoutDuration;
         private TimeSpan remainingSetSpan;
         private TimeSpan remainingWorkoutSpan;
-
-
+        
         public string CurrentTimerName
         {
             get { return CurrentTimer.Name; }
@@ -166,17 +165,24 @@ namespace TimerApp.ViewModel
         private void Manager_WorkoutTimerFinishedEvent(object sender, WorkoutFinishedEventArgs e)
         {
             manager.StopAllTimers();
+            Duration = "Done";
+            SetDuration = new TimeSpan(0).ToString();
+            workoutDuration = new TimeSpan(0).ToString();
             // throw new NotImplementedException();
         }
 
         private void Manager_SetTimerFinishedEvent(object sender, SetFinishedEventArgs e)
         {
+            setIndex++;
+            RemainingSetSpan = allSets[setIndex].Duration;//.Add(new TimeSpan(0,0,1));//manager.GetSetSpan(allSets[setIndex]);
+            SetName = allSets[setIndex].Name;
             //throw new NotImplementedException();
         }
 
         private void Manager_SetTimerElapsedEvent(object sender, ElapsedEventArgs e)
         {
-            currentSetRepetitions++;
+            //currentSetRepetitions++;
+
         }
 
         private void Manager_ExerciseTimerFinishedEvent(object sender, ExerciseFinishedEventArgs e)
@@ -208,7 +214,7 @@ namespace TimerApp.ViewModel
             //modify currently displayed exercise timer
             CurrentTimer.Duration = CurrentTimer.Duration.Subtract(new TimeSpan(0, 0, 1));
 
-            if (CurrentTimer.Duration != new TimeSpan(0, 0, -1))
+            if (CurrentTimer.Duration != new TimeSpan(0, 0, 0))
             {
                 Duration = CurrentTimer.Duration.ToString();
             }
@@ -221,19 +227,19 @@ namespace TimerApp.ViewModel
                 CurrentTimerName = CurrentTimer.Name;
             }
             //modify currently displayed set timer
-            if (RemainingSetSpan != new TimeSpan(0, 0, -1))
+            if (RemainingSetSpan != new TimeSpan(0, 0, 0))
             {
                 RemainingSetSpan = RemainingSetSpan.Subtract(new TimeSpan(0, 0, 1));
             }                
             else// (remainingSetSpan == new TimeSpan(0, 0, -1))
             {
-                setIndex++;
-                RemainingSetSpan = allSets[setIndex].Duration;//manager.GetSetSpan(allSets[setIndex]);
-                SetName = allSets[setIndex].Name;
+                //setIndex++;
+                //RemainingSetSpan = allSets[setIndex].Duration;//manager.GetSetSpan(allSets[setIndex]);
+                //SetName = allSets[setIndex].Name;
             }
             //modify currently displayed workout timer
 
-            if(RemainingWorkoutSpan != new TimeSpan(0))
+            //if(RemainingWorkoutSpan != new TimeSpan(0))
             {
                 RemainingWorkoutSpan = RemainingWorkoutSpan.Subtract(new TimeSpan(0, 0, 1));
             }            
@@ -245,7 +251,53 @@ namespace TimerApp.ViewModel
            
             //throw new NotImplementedException();
         }
+        internal void ResetTimer()
+        {
+            
+            exerciseIndex = 0;
+            setIndex = 0;
+            currentWorkout = AppCore.CurrentWorkout;//AppCore.Workouts.First();
+            WorkoutName = currentWorkout.Name;
+            setName = currentWorkout.Timers.First().Name;
+            var ct = currentWorkout.Timers.First().Timers.First();
 
+            CurrentTimer = new DisplayTimer(ct);
+            Duration = CurrentTimer.Duration.ToString();
+            CurrentTimerName = CurrentTimer.Name;
+            manager = new TimerManager();
+
+            remainingWorkoutSpan = new TimeSpan();
+            remainingWorkoutSpan = currentWorkout.Duration;
+            WorkoutDuration = remainingWorkoutSpan.ToString();
+            remainingSetSpan = new TimeSpan();
+            remainingSetSpan = currentWorkout.Timers.First().Duration;//manager.GetSetSpan();
+            SetDuration = remainingSetSpan.ToString();
+            //dummywerte weil zuerst ein finished event fliegt
+            //allSets.Add(new TimerSet());
+            //allTimers.Add(new AtomicTimer());
+            foreach (var set in currentWorkout.Timers)
+            {
+                for (int i = 0; i < set.Repetitions; i++)
+                {
+                    allSets.Add(set);
+                    foreach (var timer in set.Timers)
+                    {
+                        for (int j = 0; j < timer.Repetitions; j++)
+                        {
+                            allTimers.Add(timer);
+                        }
+                    }
+                }
+            }
+            manager.ExerciseTimerElapsedEvent += manager_ExerciseTimerElapsedEvent;
+            manager.ExerciseTimerFinishedEvent += Manager_ExerciseTimerFinishedEvent;
+            manager.SetTimerElapsedEvent += Manager_SetTimerElapsedEvent;
+            manager.SetTimerFinishedEvent += Manager_SetTimerFinishedEvent;
+            manager.WorkoutTimerElapsedEvent += manager_WorkoutTimerElapsedEvent;
+            manager.WorkoutTimerFinishedEvent += Manager_WorkoutTimerFinishedEvent;
+            isRunning = false;
+            //throw new NotImplementedException();
+        }
 
 
 

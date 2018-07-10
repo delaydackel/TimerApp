@@ -95,7 +95,8 @@ namespace TimerApp.View
         }
 
         private void TimerSetListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {            
+        {
+            Vm.SaveTimerSets();
             Navigation.PushAsync(new TimerCreationPage(Vm.WorkoutId, (e.SelectedItem as TimerSet).SetId));
            // throw new NotImplementedException();
         }

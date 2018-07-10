@@ -15,17 +15,17 @@ namespace TimerApp.ViewModel
     class TimerSetCreationPageViewModel : INotifyPropertyChanged
     {
         private ObservableCollection<TimerSet> timerSets;
-        public ObservableCollection<TimerSet> TimerSets { get { return timerSets; } set { timerSets = value;OnPropertyChanged(); } }
-       
+        public ObservableCollection<TimerSet> TimerSets { get { return timerSets; } set { timerSets = value; OnPropertyChanged(); } }
+
         public string WorkoutId { get; internal set; }
         public TimerSetCreationPageViewModel()
         {
             timerSets = new ObservableCollection<TimerSet>();
             LoadTimerSets();
         }
-        public TimerSetCreationPageViewModel(string workoutId):this()
+        public TimerSetCreationPageViewModel(string workoutId) : this()
         {
-            WorkoutId = workoutId;            
+            WorkoutId = workoutId;
         }
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -46,8 +46,8 @@ namespace TimerApp.ViewModel
             foreach (var item in AppCore.CurrentWorkout.Timers)
             {
                 TimerSets.Add(item);
-            } 
-            if (TimerSets.Count() == 0 )
+            }
+            if (TimerSets.Count() == 0)
             {
                 TimerSets.Add(new TimerSet());
                 //SaveTimerSets();
@@ -59,18 +59,19 @@ namespace TimerApp.ViewModel
             var currentTimers = TimerSets.ToList<TimerSet>();
             AppCore.CurrentWorkout.Timers = currentTimers;
             var blub = AppCore.Workouts.Where(wo => wo.Id == this.WorkoutId).First();
-            blub =  AppCore.CurrentWorkout;
+            blub = AppCore.CurrentWorkout;
             var dbMgr = new DatabaseManager();
             dbMgr.SaveWorkouts(AppCore.Workouts);
         }
 
         internal void AddTimerSet()
         {
-            TimerSets.Add(new TimerSet());
+            TimerSets.Add(new TimerSet());// { Timers = new List<AtomicTimer>() { new AtomicTimer() } });
             var currentTimers = TimerSets.ToList<TimerSet>();
             AppCore.CurrentWorkout.Timers = currentTimers;
             var blub = AppCore.Workouts.Where(wo => wo.Id == this.WorkoutId).First();
             blub = AppCore.CurrentWorkout;
+            SaveTimerSets();
             //{
             //    SetId = Guid.NewGuid().ToString(),
             //    Name = "neues Set",

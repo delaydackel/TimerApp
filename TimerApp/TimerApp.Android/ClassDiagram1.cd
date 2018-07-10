@@ -1,0 +1,267 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="TimerApp.App" Collapsed="true">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAgAEAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\dacke_000\Source\Repos\TimerApp\TimerApp\TimerApp\App.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimerApp.MainPage" Collapsed="true">
+    <Position X="16.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\dacke_000\Source\Repos\TimerApp\TimerApp\TimerApp\MainPage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimerApp.Control.AppCore" Collapsed="true">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAARAAAQAAAAIAAAACAAAAAAABAAAAAAAAQAAAA=</HashCode>
+      <FileName>C:\Users\dacke_000\Source\Repos\TimerApp\TimerApp\TimerApp\Control\AppCore.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimerApp.Control.ExerciseFinishedEventArgs" Collapsed="true">
+    <Position X="0.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\dacke_000\Source\Repos\TimerApp\TimerApp\TimerApp\Control\ExerciseFinishedEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimerApp.Control.FinishedEventArgs" Collapsed="true">
+    <Position X="2.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\dacke_000\Source\Repos\TimerApp\TimerApp\TimerApp\Control\FinishedEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimerApp.Control.Helper" Collapsed="true">
+    <Position X="16.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>C:\Users\dacke_000\Source\Repos\TimerApp\TimerApp\TimerApp\Control\Helper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimerApp.Control.SetFinishedEventArgs" Collapsed="true">
+    <Position X="2.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\dacke_000\Source\Repos\TimerApp\TimerApp\TimerApp\Control\SetFinishedEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimerApp.Control.TimerManager" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="14.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAgZACBERAUBCIIEDAACEQCAAqAAggDkABUAAAACAA=</HashCode>
+      <FileName>C:\Users\dacke_000\Source\Repos\TimerApp\TimerApp\TimerApp\Control\TimerManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TimerApp.Control.WorkoutFinishedEventArgs" Collapsed="true">
+    <Position X="5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\dacke_000\Source\Repos\TimerApp\TimerApp\TimerApp\Control\WorkoutFinishedEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimerApp.Model.AtomicTimer" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAIQAAACEAAAIAAAAAQAgAgEAAQAAAAEAAAAAAA=</HashCode>
+      <FileName>C:\Users\dacke_000\Source\Repos\TimerApp\TimerApp\TimerApp\Model\AtomicTimer.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TimerApp.Model.DatabaseManager" Collapsed="true">
+    <Position X="12.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAABBAAAQAAAEAQBAAAQAAAgAAAAABBAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\dacke_000\Source\Repos\TimerApp\TimerApp\TimerApp\Model\DatabaseManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimerApp.Model.DisplayTimer" BaseTypeListCollapsed="true">
+    <Position X="18.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAACAAAAIAAAAAQAgAAEAAQAAAAEAAAAAAA=</HashCode>
+      <FileName>C:\Users\dacke_000\Source\Repos\TimerApp\TimerApp\TimerApp\Model\DisplayTimer.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TimerApp.Model.TimerSet" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAQAAAAACIAAAIAAAAAQAgAAEAAQAAAAEAAAUEgE=</HashCode>
+      <FileName>C:\Users\dacke_000\Source\Repos\TimerApp\TimerApp\TimerApp\Model\TimerSet.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TimerApp.Model.Workout" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQSAAAAAAACAAAAIAAAAAQAgAAEAAAAAAAAAAAEEgA=</HashCode>
+      <FileName>C:\Users\dacke_000\Source\Repos\TimerApp\TimerApp\TimerApp\Model\Workout.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TimerApp.View.LandingPage" Collapsed="true">
+    <Position X="7.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\dacke_000\Source\Repos\TimerApp\TimerApp\TimerApp\View\LandingPage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimerApp.View.LandingPageDetail" Collapsed="true">
+    <Position X="9.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\dacke_000\Source\Repos\TimerApp\TimerApp\TimerApp\View\LandingPageDetail.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimerApp.View.LandingPageMaster" Collapsed="true">
+    <Position X="11" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\dacke_000\Source\Repos\TimerApp\TimerApp\TimerApp\View\LandingPageMaster.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimerApp.View.LandingPageMenuItem" Collapsed="true">
+    <Position X="12.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>C:\Users\dacke_000\Source\Repos\TimerApp\TimerApp\TimerApp\View\LandingPageMenuItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimerApp.View.PlaylistPage" Collapsed="true">
+    <Position X="7.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\dacke_000\Source\Repos\TimerApp\TimerApp\TimerApp\View\PlaylistPage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimerApp.View.TimerCreationPage" Collapsed="true">
+    <Position X="11" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQACIACAgAAAAAgAABCAAACAAAAAAAAAAoAAAAAAI=</HashCode>
+      <FileName>C:\Users\dacke_000\Source\Repos\TimerApp\TimerApp\TimerApp\View\TimerCreationPage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimerApp.View.TimerPage" Collapsed="true">
+    <Position X="16.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAACAAAIgAAAAAAAAAAAAAAAAAAAAAgAAAAAABAAA=</HashCode>
+      <FileName>C:\Users\dacke_000\Source\Repos\TimerApp\TimerApp\TimerApp\View\TimerPage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimerApp.View.TimerSetCreationPage" Collapsed="true">
+    <Position X="11" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIBACAACAiAAAAAAAAAAEAAAAEAABAAAAAoAAAAAAE=</HashCode>
+      <FileName>C:\Users\dacke_000\Source\Repos\TimerApp\TimerApp\TimerApp\View\TimerSetCreationPage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimerApp.View.WorkoutCreationPage" Collapsed="true">
+    <Position X="7.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAACAACAgAAAACAAgAAAgAAAAAABAAAAAIAAAAAAE=</HashCode>
+      <FileName>C:\Users\dacke_000\Source\Repos\TimerApp\TimerApp\TimerApp\View\WorkoutCreationPage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimerApp.ViewModel.TimerCreationPageViewModel" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="12.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAQAAAAEAAIAEAYAAAAAAAgAAAAAAAAAAAAAAAgAA=</HashCode>
+      <FileName>C:\Users\dacke_000\Source\Repos\TimerApp\TimerApp\TimerApp\ViewModel\TimerCreationPageViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TimerApp.ViewModel.TimerPageViewModel" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CEACSgIBgAADACDBIAAEgQANgAIQAARCgAAExgAABAQ=</HashCode>
+      <FileName>C:\Users\dacke_000\Source\Repos\TimerApp\TimerApp\TimerApp\ViewModel\TimerPageViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TimerApp.ViewModel.TimerSetCreationPageViewModel" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="12.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAIAAABAAAAEAAIAAAAAAAgAAAAAAAAABAAAAAACA=</HashCode>
+      <FileName>C:\Users\dacke_000\Source\Repos\TimerApp\TimerApp\TimerApp\ViewModel\TimerSetCreationPageViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TimerApp.ViewModel.TimerSettingPageViewModel" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="14.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\dacke_000\Source\Repos\TimerApp\TimerApp\TimerApp\ViewModel\TimerSettingPageViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TimerApp.ViewModel.WorkoutCreationPageViewModel" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAIBAAACAAggAAAAAQAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\dacke_000\Source\Repos\TimerApp\TimerApp\TimerApp\ViewModel\WorkoutCreationPageViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TimerApp.Droid.MainActivity" Collapsed="true">
+    <Position X="14.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MainActivity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimerApp.Droid.SaveAndLoad_Android" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SaveAndLoad_Android.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Interface Name="TimerApp.Control.IAppService" Collapsed="true">
+    <Position X="7.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAABAAAAAAAgAAAAAAAQAA=</HashCode>
+      <FileName>C:\Users\dacke_000\Source\Repos\TimerApp\TimerApp\TimerApp\Control\IAppService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TimerApp.Control.IDataStore&lt;T&gt;" Collapsed="true">
+    <Position X="9.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAABAAAABAAAAAAEAAAAAQAAA=</HashCode>
+      <FileName>C:\Users\dacke_000\Source\Repos\TimerApp\TimerApp\TimerApp\Control\IDataStore.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TimerApp.Control.ITimerManager" Collapsed="true">
+    <Position X="12.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAACAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\dacke_000\Source\Repos\TimerApp\TimerApp\TimerApp\Control\ITimerManager.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TimerApp.Model.ISaveAndLoad" Collapsed="true">
+    <Position X="11" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\dacke_000\Source\Repos\TimerApp\TimerApp\TimerApp\Model\ISaveAndLoad.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="TimerApp.Model.TimerState" Collapsed="true">
+    <Position X="7.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\dacke_000\Source\Repos\TimerApp\TimerApp\TimerApp\Model\TimerState.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TimerApp.Model.TimerType" Collapsed="true">
+    <Position X="9.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\dacke_000\Source\Repos\TimerApp\TimerApp\TimerApp\Model\TimerState.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

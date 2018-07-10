@@ -39,6 +39,7 @@ namespace TimerApp.View
         private void TimerPauseLabelGestureRecognizer_Tapped(object sender, EventArgs e)
         {
             Vm.PauseTimer();
+            Vm.ResetTimer();// = new TimerPageViewModel();            
         }
 
         private void TimerStartGestureRecognizer_Tapped(object sender, EventArgs e)

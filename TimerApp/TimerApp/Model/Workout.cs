@@ -52,7 +52,7 @@ namespace TimerApp.Model
                             for (int j = 0; j < timer.Repetitions; j++)
                             {
                                 rvalue = rvalue.Add(timer.Duration);
-                                rvalue = rvalue.Add(new TimeSpan(0, 0, 1));//hax
+                                //rvalue = rvalue.Add(new TimeSpan(0, 0, 1));//hax
                             }
 
                         }

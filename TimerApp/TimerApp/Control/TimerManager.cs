@@ -90,8 +90,9 @@ namespace TimerApp.Control
       
             ExerciseTimerFinishedEvent(this, e);
             currentExerciseTimer.Elapsed += (s, arg) => OnExerciseTimerFinishedEvent(this, new ExerciseFinishedEventArgs());
-            currentExerciseTimer.Interval = exerciseTimeSpans[currentExerciseIndex].Duration().TotalSeconds * 1000;
             currentExerciseIndex++;
+            currentExerciseTimer.Interval = exerciseTimeSpans[currentExerciseIndex].Duration().TotalSeconds * 1000;
+            
         }
         public delegate void ExerciseTimerFinishedHandler(object sender, ExerciseFinishedEventArgs e);
         public delegate void SetTimerFinishedHandler(object sender, SetFinishedEventArgs e);
@@ -100,8 +101,10 @@ namespace TimerApp.Control
             try
             {              
                 SetTimerFinishedEvent(this, e);
-                currentSetTimer.Interval = setTimeSpans[currentSetIndex].Duration().TotalSeconds * 1000;
+
                 currentSetIndex++;
+                currentSetTimer.Interval = setTimeSpans[currentSetIndex].Duration().TotalSeconds * 1000;
+                
             }
             catch (Exception ex)
             {
@@ -140,7 +143,7 @@ namespace TimerApp.Control
                             for (int j = 0; j < exercise.Repetitions; j++)
                             {
                                 currentSetSpan = currentSetSpan.Add(exercise.Duration);
-                                currentSetSpan = currentSetSpan.Add(new TimeSpan(0,0,1));//hax
+                                //currentSetSpan = currentSetSpan.Add(new TimeSpan(0,0,1));//hax
                                 exerciseTimeSpans.Add(exercise.Duration);
                             }                            
                         }
@@ -286,7 +289,7 @@ namespace TimerApp.Control
                     for (int j = 0; j < timer.Repetitions; j++)
                     {
                         rvalue = rvalue.Add(timer.Duration);
-                        rvalue = rvalue.Add(new TimeSpan(0, 0, 1));//hax
+                        //rvalue = rvalue.Add(new TimeSpan(0, 0, 1));//hax
                     }
                 }
             }
@@ -306,7 +309,7 @@ namespace TimerApp.Control
                         for (int j = 0; j < timer.Repetitions; j++)
                         {
                             rvalue = rvalue.Add(timer.Duration);
-                            rvalue = rvalue.Add(new TimeSpan(0,0,1));//hax
+                            //rvalue = rvalue.Add(new TimeSpan(0,0,1));//hax
                         }
                         
                     }
