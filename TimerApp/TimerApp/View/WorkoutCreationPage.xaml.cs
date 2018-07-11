@@ -75,7 +75,7 @@ namespace TimerApp.View
             DataTemplate template = new DataTemplate(() =>
             {
                 var grid = new Grid();
-                grid.BackgroundColor = Color.Blue;
+                grid.BackgroundColor = Color.LightGray;
                 //grid.HeightRequest = 50;
                 grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
                 grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });

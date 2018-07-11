@@ -28,7 +28,7 @@ namespace TimerApp.Model
         {
             get
             {
-                TimeSpan rvalue = new TimeSpan();
+                TimeSpan rvalue = new TimeSpan(0);
 
                 for (int i = 0; i < this.Repetitions; i++)
                 {
@@ -93,6 +93,23 @@ namespace TimerApp.Model
             }
             set { decreaseRepetitionsCommand = value; }
         }
+        //private ICommand removeItemCommand;
+        //public ICommand RemoveItemCommand
+        //{
+        //    get
+        //    {
+        //        if (removeItemCommand == null)
+        //        {
+        //            removeItemCommand = new Command(() => {
+                        
+        //                (BindingContext as ViewModel.TimerSetCreationPageViewModel).TimerSets.Remove(this);
+        //                (BindingContext as ViewModel.TimerSetCreationPageViewModel).SaveTimerSets();
+        //            });
+        //        }
+        //        return removeItemCommand;
+        //    }
+        //    set { removeItemCommand = value; }
+        //}
         //private List<AtomicTimer> elements;
         //private uint repetitions;
         //public List<AtomicTimer> Elements

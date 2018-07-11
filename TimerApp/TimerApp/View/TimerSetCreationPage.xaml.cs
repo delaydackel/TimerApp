@@ -132,31 +132,42 @@ namespace TimerApp.View
                 grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
                 grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
                 grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+                //grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
                 var nameLabel = new Label { FontAttributes = FontAttributes.Bold };
                 //var durationLabel = new Label();
                 var repetitionsLabel = new Label { HorizontalTextAlignment = TextAlignment.End };
                 var increaseRepetitionsButton = new Button() { Text = "+" };
                 var decreaseRepetitionsButton = new Button() { Text = "-" };
-
+                //var removeItemButton = new Button() { Text = "x" };
                 increaseRepetitionsButton.SetBinding(Button.CommandProperty, "IncreaseRepetitionsCommand");
                 decreaseRepetitionsButton.SetBinding(Button.CommandProperty, "DecreaseRepetitionsCommand");
+                
+                //removeItemButton.Clicked +=(s,e)=> RemoveItemButton_Clicked(s,new EventArgs());
+                //removeItemButton.SetBinding(Button.CommandProperty,"RemoveItemCommand");
                 //increaseRepetitionsButton.Clicked += IncreaseRepetitionsButton_Clicked;
                 //decreaseRepetitionsButton.Clicked += DecreaseRepetitionsButton_Clicked;
                 nameLabel.SetBinding(Label.TextProperty, "Name");
                 //durationLabel.SetBinding(Label.TextProperty, "Repetitions");
                 repetitionsLabel.SetBinding(Label.TextProperty, "Repetitions");
-
+                
                 grid.Children.Add(nameLabel,0,0);                
                 grid.Children.Add(repetitionsLabel, 1, 0);
                 grid.Children.Add(increaseRepetitionsButton, 2, 0);
                 grid.Children.Add(decreaseRepetitionsButton, 3, 0);
-
+                //grid.Children.Add(removeItemButton,4,0);
 
                 return new ViewCell { View = grid };
             });
 
             return template;
         }
+
+        //private void RemoveItemButton_Clicked(object sender, EventArgs e)
+        //{
+        //    ((sender as Button).BindingContext as TimerSetCreationPageViewModel).TimerSets.Remove();
+        //    (sender as Button).
+        //    //Vm.RemoveItem();
+        //}
 
         protected override void OnDisappearing()
         {

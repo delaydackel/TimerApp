@@ -128,30 +128,30 @@ namespace TimerApp.Control
                 TimeSpan workoutSpan = GetWorkoutSpan(currentWorkout);
                 List<TimeSpan> setSpans = new List<TimeSpan>();
 
-                CancellationTokenSource src = new CancellationTokenSource();
+                //CancellationTokenSource src = new CancellationTokenSource();
                
 
-                activeSources.Add(src);
+                //activeSources.Add(src);
 
                 foreach (var set in currentWorkout.Timers)
                 {
                     for (int i = 0; i < set.Repetitions; i++)
                     {
-                        TimeSpan currentSetSpan = new TimeSpan();
+                        //TimeSpan currentSetSpan = new TimeSpan();
                         foreach (var exercise in set.Timers)
                         {                           
                             for (int j = 0; j < exercise.Repetitions; j++)
                             {
-                                currentSetSpan = currentSetSpan.Add(exercise.Duration);
+                              //  currentSetSpan = currentSetSpan.Add(exercise.Duration);
                                 //currentSetSpan = currentSetSpan.Add(new TimeSpan(0,0,1));//hax
                                 exerciseTimeSpans.Add(exercise.Duration);
                             }                            
                         }
-                        setSpans.Add(currentSetSpan);
-                        setTimeSpans.Add(currentSetSpan);
+                        //setSpans.Add(set.Duration);
+                        setTimeSpans.Add(set.Duration);
                     }                    
                 }
-                CancellationToken ct = src.Token;
+               // CancellationToken ct = src.Token;
               
                 currentSetTimer= new System.Timers.Timer();
 
@@ -240,25 +240,25 @@ namespace TimerApp.Control
             currentExerciseTimer.Start();
         }
 
-        private bool RunExercise( CancellationToken ct)
-        {
-            while (_timerState == TimerState.RUNNING)
-            {
-                while (exerciseTimeSpans.Count > 0)
-                {
-                    if (ct.IsCancellationRequested)
-                    {
-                        ct.ThrowIfCancellationRequested();
-                    }
-                    //exerciseTimer.Start();
-                    Task.Delay(exerciseTimeSpans[0]).Wait();
-                    exerciseTimeSpans.RemoveAt(0);
-                    OnExerciseTimerFinishedEvent(this, new ExerciseFinishedEventArgs());
-                }
-            }
-            exerciseTimer.Stop();
-            return true;
-        }
+        //private bool RunExercise( CancellationToken ct)
+        //{
+        //    while (_timerState == TimerState.RUNNING)
+        //    {
+        //        while (exerciseTimeSpans.Count > 0)
+        //        {
+        //            if (ct.IsCancellationRequested)
+        //            {
+        //                ct.ThrowIfCancellationRequested();
+        //            }
+        //            //exerciseTimer.Start();
+        //            Task.Delay(exerciseTimeSpans[0]).Wait();
+        //            exerciseTimeSpans.RemoveAt(0);
+        //            OnExerciseTimerFinishedEvent(this, new ExerciseFinishedEventArgs());
+        //        }
+        //    }
+        //    exerciseTimer.Stop();
+        //    return true;
+        //}
 
         internal void StopAllTimers()
         {
@@ -278,24 +278,24 @@ namespace TimerApp.Control
             //  throw new NotImplementedException();
         }
 
-        private TimeSpan GetSetSpan(TimerSet set)
-        {
-            TimeSpan rvalue = new TimeSpan();
+        //private TimeSpan GetSetSpan(TimerSet set)
+        //{
+        //    TimeSpan rvalue = new TimeSpan();
            
-            for (int i = 0; i < set.Repetitions; i++)
-            {
-                foreach (var timer in set.Timers)
-                {
-                    for (int j = 0; j < timer.Repetitions; j++)
-                    {
-                        rvalue = rvalue.Add(timer.Duration);
-                        //rvalue = rvalue.Add(new TimeSpan(0, 0, 1));//hax
-                    }
-                }
-            }
+        //    for (int i = 0; i < set.Repetitions; i++)
+        //    {
+        //        foreach (var timer in set.Timers)
+        //        {
+        //            for (int j = 0; j < timer.Repetitions; j++)
+        //            {
+        //                rvalue = rvalue.Add(timer.Duration);
+        //                //rvalue = rvalue.Add(new TimeSpan(0, 0, 1));//hax
+        //            }
+        //        }
+        //    }
             
-            return rvalue;
-        }
+        //    return rvalue;
+        //}
 
         private TimeSpan GetWorkoutSpan(Workout workout)
         {
@@ -316,6 +316,7 @@ namespace TimerApp.Control
                 }
                 
             }
+           // rvalue = rvalue.Add(new TimeSpan(0,0,2));
             return rvalue;
 
         }

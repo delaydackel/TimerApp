@@ -50,7 +50,17 @@ namespace TimerApp.ViewModel
 
         internal void AddWorkout()
         {
-            WorkoutsCollection.Add(new Workout());
+            WorkoutsCollection.Add(new Workout() { Timers =
+                new List<TimerSet>() {
+                    new TimerSet(){
+                        Timers = new List<AtomicTimer>(){ new AtomicTimer() { Duration = new TimeSpan(0,0,1)} }
+                        }
+
+                    }
+                }
+                
+                
+                );
             //{
             //    Id = Guid.NewGuid().ToString(),
             //    Playlist = string.Empty,

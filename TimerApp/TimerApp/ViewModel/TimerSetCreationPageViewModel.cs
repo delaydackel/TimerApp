@@ -66,7 +66,7 @@ namespace TimerApp.ViewModel
 
         internal void AddTimerSet()
         {
-            TimerSets.Add(new TimerSet());// { Timers = new List<AtomicTimer>() { new AtomicTimer() } });
+            TimerSets.Add(new TimerSet() { Timers = new List<AtomicTimer>() { new AtomicTimer() { Duration = new TimeSpan(0,0,1)} } });
             var currentTimers = TimerSets.ToList<TimerSet>();
             AppCore.CurrentWorkout.Timers = currentTimers;
             var blub = AppCore.Workouts.Where(wo => wo.Id == this.WorkoutId).First();

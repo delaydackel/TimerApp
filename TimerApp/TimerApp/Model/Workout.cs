@@ -42,7 +42,7 @@ namespace TimerApp.Model
         {
             get
             {
-                TimeSpan rvalue = new TimeSpan();
+                TimeSpan rvalue = new TimeSpan(0);
                 foreach (var set in this.Timers)
                 {
                     for (int i = 0; i < set.Repetitions; i++)

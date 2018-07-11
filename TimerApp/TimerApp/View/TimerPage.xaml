@@ -11,7 +11,7 @@
             <Grid x:Name ="grid"
                   HorizontalOptions="FillAndExpand"
                   VerticalOptions="FillAndExpand"
-                  BackgroundColor="Beige">
+                  BackgroundColor="White">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
@@ -35,29 +35,18 @@
               Grid.Row="3"
               Grid.ColumnSpan="2"
               Grid.RowSpan="2"
-              FontSize="Large"
+              Font="45"
               Text="{Binding Duration}"
               HorizontalOptions="CenterAndExpand"
               VerticalOptions="CenterAndExpand"
               />
                 <Label
-                    x:Name="TimerNextLabel"
-              Grid.Column="3"
-              Grid.Row="8"
-              Text="Next"
-              HorizontalOptions="Center"
-              VerticalOptions="Center"
-              FontSize="Large"
-                    >
-                    <Label.GestureRecognizers>
-                        <TapGestureRecognizer x:Name="TimerNextLabelGestureRecognizer" Tapped="TimerNextLabelGestureRecognizer_Tapped"></TapGestureRecognizer>
-                    </Label.GestureRecognizers>
-                </Label>
-                <Label
                     x:Name="TimerStartLabel"
-              Grid.Column="1"
-              Grid.Row="8"
+              Grid.Column="2"
+              Grid.Row="7"
               Grid.ColumnSpan="2"
+              Grid.RowSpan="2"
+              TextColor="DarkGreen"
               Text="Start"
               HorizontalOptions="Center"
               VerticalOptions="Center"
@@ -70,8 +59,11 @@
                 <Label
                     x:Name="TimerPauseLabel"
               Grid.Column="0"
-              Grid.Row="8"
-              Text="Pause"
+              Grid.Row="7"
+              Grid.ColumnSpan="2"
+              Grid.RowSpan="2"
+              TextColor="DarkRed"
+              Text="Stop"
               HorizontalOptions="Center"
               VerticalOptions="Center"
               FontSize="Large"
@@ -82,9 +74,9 @@
                 </Label>
                 <Label
                     x:Name="TimerNameLabel"
-              Grid.Column="1"
+              Grid.Column="0"
               Grid.Row="5"
-              Grid.ColumnSpan="2"
+              Grid.ColumnSpan="4"
               Text="{Binding CurrentTimerName}"
               HorizontalOptions="CenterAndExpand"
               VerticalOptions="CenterAndExpand"
@@ -97,8 +89,9 @@
                 <Label
                     x:Name="SetNameLabel"
                     Grid.Column="0"
-                    Grid.Row="0"
+                    Grid.Row="2"
                     Grid.ColumnSpan="2"
+                    TextColor="DarkGray"
                     HorizontalOptions="CenterAndExpand"
                     VerticalOptions="CenterAndExpand"
                     FontSize="Large"
@@ -110,6 +103,7 @@
                     Grid.Column="0"
                     Grid.Row="1"
                     Grid.ColumnSpan="2"
+                    TextColor="DarkGray"
                     HorizontalOptions="CenterAndExpand"
                     VerticalOptions="CenterAndExpand"
                     FontSize="Large"
@@ -119,8 +113,9 @@
                 <Label
                     x:Name="SetDurationLabel"
                     Grid.Column="2"
-                    Grid.Row="0"
+                    Grid.Row="2"
                     Grid.ColumnSpan="2"
+                    TextColor="DarkGray"
                     HorizontalOptions="CenterAndExpand"
                     VerticalOptions="CenterAndExpand"
                     FontSize="Large"
@@ -132,6 +127,7 @@
                     Grid.Column="2"
                     Grid.Row="1"
                     Grid.ColumnSpan="2"
+                    TextColor="DarkGray"
                     HorizontalOptions="CenterAndExpand"
                     VerticalOptions="CenterAndExpand"
                     FontSize="Large"
