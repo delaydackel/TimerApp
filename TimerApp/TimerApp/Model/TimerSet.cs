@@ -22,7 +22,14 @@ namespace TimerApp.Model
         private int repetitions;
         public string Name { get { return name; } set { name = value; OnPropertyChanged(); } }
         public List<AtomicTimer> Timers { get { return timers; } set { timers = value; OnPropertyChanged(); } }
-        public int Repetitions { get { return repetitions; } set { repetitions = value; OnPropertyChanged(); } }
+        public int Repetitions { get { return repetitions; }
+            set {
+                    //if (repetitions - value)
+                    {
+                        repetitions = value; OnPropertyChanged();
+                    }
+                 }
+        }
         public string SetId { get { return id; } set { id = value; OnPropertyChanged(); } }
         public TimeSpan Duration
         {
@@ -83,7 +90,7 @@ namespace TimerApp.Model
                 {
                     decreaseRepetitionsCommand = new Command(() =>
                     {
-                        if (Repetitions > 0)
+                        if (Repetitions > 1)
                         {
                             Repetitions--;
                         }

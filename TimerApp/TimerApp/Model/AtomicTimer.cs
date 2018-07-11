@@ -34,7 +34,13 @@ namespace TimerApp.Model
         public int Repetitions
         {
             get { return repetitions; }
-            set { repetitions = value; OnPropertyChanged(); }
+            set
+            {
+               // if (repetitions>1)
+                {
+                    repetitions = value; OnPropertyChanged();
+                }
+            }
         }
         public string RepetitionsText
         {
