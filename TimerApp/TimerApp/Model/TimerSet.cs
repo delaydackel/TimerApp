@@ -30,7 +30,7 @@ namespace TimerApp.Model
             {
                 TimeSpan rvalue = new TimeSpan(0);
 
-                for (int i = 0; i < this.Repetitions; i++)
+              //  for (int i = 0; i < this.Repetitions; i++)
                 {
                     foreach (var timer in this.Timers)
                     {
