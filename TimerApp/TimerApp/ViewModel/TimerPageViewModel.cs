@@ -88,7 +88,7 @@ namespace TimerApp.ViewModel
             var ct = currentWorkout.Timers.First().Timers.First();
             
             CurrentTimer = new DisplayTimer(ct);
-            //Duration = CurrentTimer.Duration.ToString();
+            Duration = CurrentTimer.Duration.ToString();
             manager = new TimerManager();
             
             remainingWorkoutSpan = new TimeSpan();
@@ -172,8 +172,10 @@ namespace TimerApp.ViewModel
         {
             manager.StopAllTimers();
             Duration = "Done";
-            SetDuration = new TimeSpan(0).ToString();
-            WorkoutDuration = new TimeSpan(0).ToString();
+            remainingSetSpan = new TimeSpan(0,0,0);
+            remainingWorkoutSpan = new TimeSpan(0,0,0);
+            OnPropertyChanged("SetDuration");
+            OnPropertyChanged("WorkoutDuration");
             // throw new NotImplementedException();
         }
 

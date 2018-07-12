@@ -72,5 +72,33 @@ namespace TimerApp.Control
             }
            
         }
+
+        internal static void Reset()
+        {
+            Workouts = new List<Workout>()
+                    {
+                        new Workout()
+                        {
+                            Id = Guid.NewGuid().ToString(),
+                            Playlist = Guid.NewGuid().ToString(),
+                            Timers = new List<TimerSet>() {
+                                new TimerSet(){
+                                    SetId = Guid.NewGuid().ToString(),
+                                    Name = "neues Set",
+                                    Repetitions = 1,
+                                    Timers = new List<AtomicTimer>()
+                                    {
+                                        new AtomicTimer(){Name = "Timer",Repetitions = 1, Duration = new TimeSpan(0,0,1)}
+                                    }
+                                }
+
+                            },
+                        Name = "Workout"
+
+                    } };
+
+        
+        CurrentWorkout = Workouts[0]; //throw new NotImplementedException();
+        }
     }
 }

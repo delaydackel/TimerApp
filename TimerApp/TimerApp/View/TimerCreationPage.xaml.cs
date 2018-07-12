@@ -101,7 +101,7 @@ namespace TimerApp.View
 
         private void DecreaseRepetitionButton_Clicked(object sender, EventArgs e)
         {
-            if((TimerListView.CurrentItem as AtomicTimer).Repetitions >= 1)
+            if((TimerListView.CurrentItem as AtomicTimer).Repetitions > 1)
             {
                 Vm.TimerList[Vm.TimerList.IndexOf(TimerListView.CurrentItem as AtomicTimer)].Repetitions--;
                 //(TimerListView.CurrentItem as AtomicTimer).Repetitions--;
@@ -132,6 +132,10 @@ namespace TimerApp.View
                 duration = new TimeSpan((long)((sender as TimePicker).Time.Ticks) / 60);
                 Vm.TimerList[Vm.TimerList.IndexOf(TimerListView.CurrentItem as AtomicTimer)].Duration = duration;
 
+
+            }
+            if (sender != null)
+            {
 
             }
 

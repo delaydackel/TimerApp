@@ -21,9 +21,14 @@ namespace TimerApp.Model
         public TimeSpan Duration
         {
             get { return duration; }
-            set { duration = value;
-                OnPropertyChanged();
-                OnPropertyChanged("DurationText");
+            set {
+                if ((value != null )&&(value!=duration)&&value  >= new TimeSpan(0,0,1))
+                {
+                    duration = value;
+                    OnPropertyChanged();
+                    OnPropertyChanged("DurationText");
+                }
+                
             }
         }
         public string DurationText

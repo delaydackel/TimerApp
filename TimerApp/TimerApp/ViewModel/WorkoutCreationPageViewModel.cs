@@ -79,5 +79,11 @@ namespace TimerApp.ViewModel
             //    Name = "Workout"
             //});
         }
+        internal void ResetData()
+        {
+            AppCore.Reset();
+            LoadWorkouts();
+            SaveWorkouts();
+        }
     }
 }

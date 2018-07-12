@@ -18,6 +18,7 @@ namespace TimerApp.View
         private DataTemplate workoutListViewItemTemplate;
         public ListView lv;
         public Button AddItemButton;
+        public Button ResetItemsButton;
         public Grid LayoutGrid;
 
         public WorkoutCreationPage()
@@ -27,13 +28,14 @@ namespace TimerApp.View
             LayoutGrid = new Grid();
             LayoutGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
             LayoutGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(0.1, GridUnitType.Star) });
+            LayoutGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(0.1, GridUnitType.Star) });
 
             LayoutGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(0.05, GridUnitType.Star) });
             LayoutGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
             LayoutGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(0.05, GridUnitType.Star) });
 
             AddItemButton = new Button() { Text = "+" };
-
+            ResetItemsButton = new Button() { Text = "reset" };
             lv = new ListView()
             {
                 
@@ -48,9 +50,17 @@ namespace TimerApp.View
             
             LayoutGrid.Children.Add(lv, 1, 0);
             LayoutGrid.Children.Add(AddItemButton, 1, 1);
+            LayoutGrid.Children.Add(ResetItemsButton, 1,2);
             AddItemButton.Clicked += AddItemButton_Clicked;
+            ResetItemsButton.Clicked += ResetItemsButton_Clicked;
             Content = LayoutGrid;
 
+        }
+
+        private void ResetItemsButton_Clicked(object sender, EventArgs e)
+        {
+            Vm.ResetData();
+            //throw new NotImplementedException();
         }
 
         private void AddItemButton_Clicked(object sender, EventArgs e)
